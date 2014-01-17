@@ -30,6 +30,12 @@ body div {
     color: white;
     padding: 20;
 }
+#MatchList label, #CompetitionList label {
+    display: block;
+}
+#Initials input {
+    width: 100px;
+}
 .blue {
     background-color: blue;
     color: white;

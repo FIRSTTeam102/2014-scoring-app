@@ -13,22 +13,28 @@
     <div id="page">
         <div class="header">
             <div id="competition">Mt Olive - MJP</div>
-            <div id="Alliance">
-                <div>Choose an Alliance</div>
-                <div id="AllianceList">
-                    <label for="rdoAllianceRed">
-                        <input type="radio" name="rdoAlliance" id="rdoAllianceRed" value="RedAlliance" />Red</label>
-                    <label for="rdoAllianceBlue">
-                        <input type="radio" name="rdoAlliance" id="rdoAllianceBlue" value="BlueAlliance" />Blue</label>
+            <form id="AllianceForm" action="ChooseMatch.html">
+                <div id="Alliance">
+                    <div>
+                        Choose an Alliance</div>
+                    <div id="AllianceList">
+                        <label for="rdoAllianceRed">
+                            <input type="radio" name="rdoAlliance" id="rdoAllianceRed" value="RedAlliance" />Red</label>
+                        <label for="rdoAllianceBlue">
+                            <input type="radio" name="rdoAlliance" id="rdoAllianceBlue" value="BlueAlliance" />Blue</label>
+                    </div>
                 </div>
-            </div>
-            <div id="nav">
-                <input type="submit" name="btnOK" value="OK" />
-                <input type="submit" name="btnBack" value="Back" />
-            </div>
+                <div id="nav">
+                    <input type="submit" name="btnOK" value="OK" />
+                    <input type="submit" name="btnBack" value="Back" />
+                </div>
+            </form>
         </div>
     </div>
-	<script src="js/jquery.js"></script>
-	<script src="js/modernizr.js"></script>
+
+    <script src="js/jquery.js"></script>
+
+    <script src="js/modernizr.js"></script>
+
 </body>
 </html>
