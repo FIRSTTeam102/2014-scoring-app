@@ -25,17 +25,10 @@ body div {
     float: left;
     width: 32%;
 }
-#match {
-    background-color: blue;
-    color: white;
-}
 #Score {
     background-color: blue;
     color: white;
     padding: 20;
-}
-#MatchList label{
-    display: block;
 }
 .blue {
     background-color: blue;
