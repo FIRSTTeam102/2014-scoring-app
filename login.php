@@ -6,7 +6,7 @@ ob_start();
 
 	session_start();
 
-/* $mysqli = mysqli_connect("team102.org:3306", "team102_admin", "Admin1023", "team102_2014");
+/* $mysqli = mysqli_connect("team102.org:3306", "team102_admin", "password", "team102_2014");
 $res = mysqli_query($mysqli, "SELECT 'Please, do not use ' AS _msg FROM DUAL");
 $row = mysqli_fetch_assoc($res);
 echo $row['_msg'];
