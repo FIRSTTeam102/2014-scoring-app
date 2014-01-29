@@ -1,12 +1,37 @@
 ﻿body {
     background: #222;
-    margin: 0;
+    margin: 0 auto;
     font-size: 1.3em;
     color: white;
     font-family: verdana, Sans-serif;
     border: solid 1px white;
     max-width:700px;
 }
+#AllianceList>input:hover{
+	cursor:pointer;
+}
+#AllianceList>input{
+	border:none;
+}
+#rdoAllianceRed:focus{
+	display:none;
+	outline:none;
+	background-color:red;
+	color:black;
+}
+#rdoAllianceBlue{
+	
+	outline:none;
+	background-color:Blue;
+	color:black;
+}
+input:checked + label{
+	
+		background: Blue;
+		border: white;
+		
+	}
+
 body div {
     text-align: center;
 }
@@ -33,7 +58,7 @@ body div {
 #MatchList label, #CompetitionList label {
     display: block;
 }
-#Initials input {
+#Initials input, #Password input {
     width: 100px;
 }
 .blue {
@@ -73,7 +98,7 @@ input:checked + label {
 input:unchecked + label {
     color: #777;
 }
-input[type=submit] {
+input[type=submit], .btnBack {
     width: auto;
     padding: 0.25em 1em;
     line-height: 1.5em;
@@ -83,6 +108,7 @@ input[type=submit] {
     font-weight: bold;
     -webkit-box-shadow: 1px 1px 3px #000;
     margin-right: 0.5em;
+    color:white;
 }
 input, textarea, select {
     border: 1px solid #111;

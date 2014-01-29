@@ -1,0 +1,72 @@
+[25-Jan-2014 13:26:24 America/Chicago] PHP Fatal error:  Class 'mysqli' not found in /home/team102/public_html/2014/scoringapp.php on line 3
+[25-Jan-2014 13:34:27 America/Chicago] PHP Fatal error:  Class 'mysqli' not found in /home/team102/public_html/2014/scoringapp.php on line 5
+[25-Jan-2014 13:34:28 America/Chicago] PHP Fatal error:  Class 'mysqli' not found in /home/team102/public_html/2014/scoringapp.php on line 5
+[25-Jan-2014 13:34:31 America/Chicago] PHP Fatal error:  Class 'mysqli' not found in /home/team102/public_html/2014/scoringapp.php on line 5
+[25-Jan-2014 13:34:33 America/Chicago] PHP Fatal error:  Class 'mysqli' not found in /home/team102/public_html/2014/scoringapp.php on line 5
+[25-Jan-2014 13:42:37 America/Chicago] PHP Fatal error:  Class 'mysqli' not found in /home/team102/public_html/2014/scoringapp.php on line 7
+[25-Jan-2014 13:42:38 America/Chicago] PHP Fatal error:  Class 'mysqli' not found in /home/team102/public_html/2014/scoringapp.php on line 7
+[25-Jan-2014 13:42:42 America/Chicago] PHP Fatal error:  Class 'mysqli' not found in /home/team102/public_html/2014/scoringapp.php on line 7
+[25-Jan-2014 13:43:34 America/Chicago] PHP Warning:  include(mysqli): failed to open stream: No such file or directory in /home/team102/public_html/2014/scoringapp.php on line 5
+[25-Jan-2014 13:43:34 America/Chicago] PHP Warning:  include(): Failed opening 'mysqli' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php:../:../../:../../../') in /home/team102/public_html/2014/scoringapp.php on line 5
+[25-Jan-2014 13:43:34 America/Chicago] PHP Fatal error:  Class 'mysqli' not found in /home/team102/public_html/2014/scoringapp.php on line 7
+[25-Jan-2014 13:45:35 America/Chicago] PHP Fatal error:  Class 'mysqli' not found in /home/team102/public_html/2014/scoringapp.php on line 6
+[25-Jan-2014 14:04:51 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/scoringapp.php on line 6
+[25-Jan-2014 14:27:46 America/Chicago] PHP Parse error:  syntax error, unexpected ')' in /home/team102/public_html/2014/scoringapp.php on line 39
+[25-Jan-2014 14:29:10 America/Chicago] PHP Parse error:  syntax error, unexpected '=', expecting ',' or ';' in /home/team102/public_html/2014/scoringapp.php on line 16
+[25-Jan-2014 14:43:31 America/Chicago] PHP Parse error:  syntax error, unexpected 'Y' (T_STRING) in /home/team102/public_html/2014/scoringapp.php on line 15
+[26-Jan-2014 08:26:36 America/Chicago] PHP Fatal error:  Call to undefined function mysqli_connect() in /home/team102/public_html/2014/scoringapp.php on line 5
+[26-Jan-2014 08:49:26 America/Chicago] PHP Fatal error:  Call to undefined function mysqli_connect() in /home/team102/public_html/2014/scoringapp.php on line 5
+[26-Jan-2014 08:49:47 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home/team102/public_html/2014/scoringapp.php on line 5
+[27-Jan-2014 19:06:04 America/Chicago] PHP Parse error:  syntax error, unexpected 'Password' (T_STRING), expecting ',' or ';' in /home/team102/public_html/2014/login.php on line 12
+[27-Jan-2014 19:06:30 America/Chicago] PHP Parse error:  syntax error, unexpected 'Password' (T_STRING), expecting ',' or ';' in /home/team102/public_html/2014/login.php on line 12
+[27-Jan-2014 19:09:31 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/login.php on line 13
+[27-Jan-2014 19:10:41 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[27-Jan-2014 19:13:31 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[27-Jan-2014 19:14:03 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[27-Jan-2014 19:14:03 America/Chicago] PHP Fatal error:  Cannot break/continue 1 level in /home/team102/public_html/2014/login.php on line 16
+[27-Jan-2014 19:29:00 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/login.php on line 17
+[27-Jan-2014 19:29:00 America/Chicago] PHP Fatal error:  Cannot break/continue 1 level in /home/team102/public_html/2014/login.php on line 23
+[27-Jan-2014 19:29:27 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/login.php on line 17
+[27-Jan-2014 19:29:27 America/Chicago] PHP Fatal error:  Cannot break/continue 1 level in /home/team102/public_html/2014/login.php on line 23
+[27-Jan-2014 20:22:29 America/Chicago] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /home/team102/public_html/2014/choosematch.php on line 30
+[27-Jan-2014 20:22:41 America/Chicago] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /home/team102/public_html/2014/choosematch.php on line 30
+[27-Jan-2014 20:23:59 America/Chicago] PHP Parse error:  syntax error, unexpected ')', expecting ',' or ';' in /home/team102/public_html/2014/choosematch.php on line 30
+[27-Jan-2014 20:29:37 America/Chicago] PHP Parse error:  syntax error, unexpected '[', expecting ',' or ';' in /home/team102/public_html/2014/choosematch.php on line 44
+[27-Jan-2014 20:31:33 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/login.php on line 18
+[27-Jan-2014 20:31:45 America/Chicago] PHP Parse error:  syntax error, unexpected '[', expecting ',' or ';' in /home/team102/public_html/2014/choosematch.php on line 44
+[27-Jan-2014 21:11:17 America/Chicago] PHP Parse error:  syntax error, unexpected '[', expecting ',' or ';' in /home/team102/public_html/2014/choosematch.php on line 58
+[27-Jan-2014 21:17:11 America/Chicago] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/team102/public_html/2014/choosematch.php on line 59
+[27-Jan-2014 21:20:52 America/Chicago] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR), expecting ',' or ';' in /home/team102/public_html/2014/choosematch.php on line 66
+[27-Jan-2014 21:22:20 America/Chicago] PHP Fatal error:  Function name must be a string in /home/team102/public_html/2014/choosematch.php on line 66
+[27-Jan-2014 21:22:32 America/Chicago] PHP Fatal error:  Function name must be a string in /home/team102/public_html/2014/choosematch.php on line 66
+[27-Jan-2014 21:22:59 America/Chicago] PHP Fatal error:  Function name must be a string in /home/team102/public_html/2014/choosematch.php on line 66
+[27-Jan-2014 21:23:41 America/Chicago] PHP Fatal error:  Function name must be a string in /home/team102/public_html/2014/choosematch.php on line 66
+[27-Jan-2014 21:24:08 America/Chicago] PHP Fatal error:  Function name must be a string in /home/team102/public_html/2014/choosematch.php on line 66
+[27-Jan-2014 21:27:56 America/Chicago] PHP Parse error:  syntax error, unexpected ''match_number'' (T_CONSTANT_ENCAPSED_STRING), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/team102/public_html/2014/choosematch.php on line 67
+[27-Jan-2014 21:30:34 America/Chicago] PHP Parse error:  syntax error, unexpected ')' in /home/team102/public_html/2014/choosematch.php on line 61
+[27-Jan-2014 21:30:44 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/choosematch.php on line 59
+[27-Jan-2014 21:31:14 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, string given in /home/team102/public_html/2014/choosematch.php on line 59
+[27-Jan-2014 21:36:17 America/Chicago] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/team102/public_html/2014/choosematch.php on line 61
+[27-Jan-2014 21:36:50 America/Chicago] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/team102/public_html/2014/choosematch.php on line 61
+[27-Jan-2014 21:37:44 America/Chicago] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/team102/public_html/2014/choosematch.php on line 60
+[27-Jan-2014 21:39:48 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/choosematch.php on line 6
+[27-Jan-2014 21:39:48 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/choosematch.php on line 8
+[27-Jan-2014 21:39:54 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/choosematch.php on line 6
+[27-Jan-2014 21:39:54 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/choosematch.php on line 8
+[27-Jan-2014 21:40:29 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/login.php on line 18
+[27-Jan-2014 21:40:29 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/team102/public_html/2014/login.php:18) in /home/team102/public_html/2014/login.php on line 24
+[27-Jan-2014 21:41:11 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/login.php on line 18
+[27-Jan-2014 21:42:15 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/login.php on line 18
+[27-Jan-2014 21:42:25 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/login.php on line 18
+[27-Jan-2014 21:44:24 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/team102/public_html/2014/login.php:23) in /home/team102/public_html/2014/login.php on line 24
+[27-Jan-2014 21:45:35 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/team102/public_html/2014/login.php:23) in /home/team102/public_html/2014/login.php on line 24
+[28-Jan-2014 10:26:13 America/Chicago] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /home/team102/public_html/2014/autonomous.php on line 13
+[28-Jan-2014 10:27:26 America/Chicago] PHP Parse error:  syntax error, unexpected '.' in /home/team102/public_html/2014/autonomous.php on line 23
+[28-Jan-2014 10:27:52 America/Chicago] PHP Parse error:  syntax error, unexpected '.' in /home/team102/public_html/2014/autonomous.php on line 23
+[28-Jan-2014 10:28:03 America/Chicago] PHP Parse error:  syntax error, unexpected '.' in /home/team102/public_html/2014/autonomous.php on line 23
+[28-Jan-2014 10:46:26 America/Chicago] PHP Parse error:  syntax error, unexpected 'hidden' (T_STRING), expecting ',' or ';' in /home/team102/public_html/2014/choosematch.php on line 61
+[28-Jan-2014 10:46:55 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home/team102/public_html/2014/choosematch.php on line 61
+[28-Jan-2014 10:47:25 America/Chicago] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/team102/public_html/2014/choosematch.php on line 61
+[28-Jan-2014 10:47:42 America/Chicago] PHP Parse error:  syntax error, unexpected '[', expecting ']' in /home/team102/public_html/2014/autonomous.php on line 24
+[28-Jan-2014 11:07:13 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_admin'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/choosematch.php on line 6
+[28-Jan-2014 11:07:13 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/choosematch.php on line 8
