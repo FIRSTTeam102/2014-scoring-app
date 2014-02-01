@@ -17,7 +17,7 @@ $initials = $_GET['txtInitials'];
 $alliance = $_GET['rdoAlliance'];
 
 
-$link = @mysql_connect('team102.org:3306', 'team102_admin', $password);
+$link = @mysql_connect('team102.org:3306', 'team102_webuser', $password);
 
 
 

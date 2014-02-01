@@ -3,7 +3,7 @@
 
 	session_start();
 	
-	$link = mysql_connect('team102.org:3306', 'team102_admin', $_SESSION['password']);
+	$link = mysql_connect('team102.org:3306', 'team102_webuser', $_SESSION['password']);
 	
 	if (!mysql_select_db('team102_2014', $link)) {
     		echo 'Could not select database';
@@ -19,7 +19,32 @@
 
 	$tournament_id = $tournament->ID;
 
-	$sqll = sprintf("SELECT * FROM matches WHERE tournament_id = '%s'",mysql_real_escape_string($tournament_id));
+	$sqll = sprintf("select mt1.match_number, m.start_time, mt1.team_number as team1, mt2.team_number as team2, mt3.team_number as team3
+		from matches m, match_teams mt1, match_teams mt2, match_teams mt3, tournaments t
+		where t.active = 'Y'
+		and m.tournament_id = t.id
+		and mt1.tournament_id = m.tournament_id
+		and mt1.match_number = m.match_number
+		and mt1.completed = 'N'
+		and mt1.alliance = '%s'
+		and mt1.seq_no = 1
+		and mt2.team_number != mt1.team_number
+		and mt2.tournament_id = mt1.tournament_id
+		and mt2.match_number = mt1.match_number
+		and mt2.completed = mt1.completed
+		and mt2.alliance = mt1.alliance
+		and mt2.seq_no = 2
+		and mt3.team_number != mt1.team_number
+		and mt3.team_number != mt2.team_number
+		and mt3.tournament_id = mt1.tournament_id
+		and mt3.match_number = mt1.match_number
+		and mt3.completed = mt1.completed
+		and mt3.alliance = mt1.alliance
+		and mt3.seq_no = 3
+		order by m.match_number;", $_SESSION['alliance']);
+		
+		# ^^^^ mt1.alliance = #
+		
 	$matches = mysql_query($sqll, $link);
 
 
@@ -50,20 +75,30 @@ if (!$result || !$matches) {
         	<div id="competition"><? echo $tournament->Title; ?></div>
             <div id="competition"></div>
             <div id="AllianceColor" class=<? echo $_SESSION['alliance']; ?>><?php echo $_SESSION['alliance']; ?> Alliance</div>
+			               
             <form id="MatchForm" action="autonomous.php">
+				<div id="nav">
+                    <button type="button" class="btnBack" onclick="history.back();">Back</button>
+                    <input type="submit" name="btnOK" value="OK" />
+                </div>
                 <div id="Match">
                     <div>Choose a Match</div>
                     <div id="MatchList">
                     <?
                     	while($row = mysql_fetch_assoc($matches)) {
-                    		echo '<label for="rdoMatch"><input type="radio" name="rdoMatch" id="rdoAlliance037" value=' . $row["match_number"] . '/>' . "#" . $row["match_number"] . " @ " . $row["start_time"] . '</label>';
+                    		echo '<label for="rdoMatch' . $row["match_number"] .'" style="font-size:.8em;">' 
+								. "<div class='team_holder' style=' float:left; width:9em;text-align:center;'>" 
+								. '<input type="radio" name="rdoMatch" id="rdoMatch' . $row["match_number"] .'" value=' 
+								. $row["match_number"] . '/>' 
+                    			. "#" . $row["match_number"] 
+                    			. " @ " . $row["start_time"] ."</div>"
+                    			. "<div style=' float:left; width:2.2em;text-align:center;' class='team_holder'> " . $row["team1"] 
+								. "</div> <div style=' float:left; width:2.2em;text-align:center;' class='team_holder'>" .$row["team3"] 
+								. "</div> <div style=' float:left; width:2.2em;text-align:center;' class='team_holder'>" . $row["team2"] 
+								. "</div><div style='clear:both;'></div> " . '</label>';
 		    	}
                     ?>
                     </div>
-                </div>
-                <div id="nav">
-                    <button type="button" class="btnBack" onclick="history.back();">Back</button>
-                    <input type="submit" name="btnOK" value="OK" />
                 </div>
             </form>
         </div>

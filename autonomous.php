@@ -4,7 +4,7 @@
 
 	session_start();
 	
-	$link = mysql_connect('team102.org:3306', 'team102_admin', $_SESSION['password']);
+	$link = mysql_connect('team102.org:3306', 'team102_webuser', $_SESSION['password']);
 	
 	if (!mysql_select_db('team102_2014', $link)) {
     		echo 'Could not select database';
@@ -42,6 +42,10 @@
             <div id="Team1" class="team">
                 <div id="Team1Number" class="teamNumber">102</div>
                 <div id="Team1AutoScore">
+					<div id="Team1HasBall">
+						<input type="checkbox" name="chkTeam1HasBallName" id="chkTeam1HasBall" value="Team-1-HasBall" checked="true" />
+						<label for="chkTeam1HasBall">Has Ball</label>
+					</div>
                     <div id="Team1ScoreHigh">
                         <input type="radio" name="rdoScore1" id="rdoScoreHigh1" value="Team-1-High" />
                         <label for="rdoScoreHigh1">High</label>
@@ -55,14 +59,22 @@
                         <label for="rdoScoreNone1">None</label>
                     </div>
                 </div>
+				<div id="Team1Hot">
+                    <input type="checkbox" name="chkTeam1HotName" id="chkTeam1Hot" value="Team-1-Hot" />
+                    <label for="chkTeam1Hot">Hot</label>
+                </div>
                 <div id="Team1Mobility">
-                    <input type="checkbox" name="chkTeam1Mobility" value="Team-1-Mobility" />
-                    <label for="Team-1-Mobility">Mobility</label>
+                    <input type="checkbox" name="chkTeam1MobilityName" id= "chkTeamMobility" value="Team-1-Mobility" />
+                    <label for="chkTeamMobility">Mobility</label>
                 </div>
             </div>
             <div id="Team2" class="team">
                 <div id="Team2Number" class="teamNumber">303</div>
                 <div id="Team2AutoScore">
+					<div id="Team2HasBall">
+						<input type="checkbox" name="chkTeam2HasBallName" id="chkTeam2HasBall" value="Team-2-HasBall" checked="true" />
+						<label for="chkTeam2HasBall">Has Ball</label>
+					</div>
                     <div id="Team2ScoreHigh">
                         <input type="radio" name="rdoScore2" id="rdoScoreHigh2" value="Team-2-High" />
                         <label for="rdoScoreHigh2">High</label>
@@ -76,14 +88,22 @@
                         <label for="rdoScoreNone2">None</label>
                     </div>
                 </div>
+				<div id="Team2Hot">
+                    <input type="checkbox" name="chkTeam2HotName" id="chkTeam2Hot" value="Team-2-Hot" />
+                    <label for="chkTeam2Hot">Hot</label>
+                </div>
                 <div id="Team2Mobility">
-                    <input type="checkbox" name="chkTeam2Mobility" value="Team-2-Mobility" />
-                    <label for="Team-2-Mobility">Mobility</label>
+                    <input type="checkbox" name="chkTeam2MobilityName" id="chkTeam2Mobility" value="Team-2-Mobility" />
+                    <label for="chkTeam2Mobility">Mobility</label>
                 </div>
             </div>
             <div id="Team3" class="team">
                 <div id="Team3Number" class="teamNumber">2547</div>
                 <div id="Team3AutoScore">
+					<div id="Team3HasBall">
+						<input type="checkbox" name="chkTeam3HasBallName" id="chkTeam3HasBall" value="Team-3-HasBall"  checked="true"/>
+						<label for="chkTeam3HasBall">Has Ball</label>
+					</div>
                     <div id="Team3ScoreHigh">
                         <input type="radio" name="rdoScore3" id="rdoScoreHigh3" value="Team-3-High" />
                         <label for="rdoScoreHigh3">High</label>
@@ -97,9 +117,13 @@
                         <label for="rdoScoreNone3">None</label>
                     </div>
                 </div>
+				<div id="Team3Hot">
+                    <input type="checkbox" name="chkTeam3HotName" id="chkTeam3Hot" value="Team-3-Hot" />
+                    <label for="chkTeam3Hot">Hot</label>
+                </div>
                 <div id="Team3Mobility">
-                    <input type="checkbox" name="chkTeam3Mobility" value="Team-3-Mobility" />
-                    <label for="Team-3-Mobility">Mobility</label>
+                    <input type="checkbox" name="chkTeam3MobilityName" id="chkTeam3Mobility" value="Team-3-Mobility" />
+                    <label for="chkTeam3Mobility">Mobility</label>
                 </div>
             </div>
             <div style="clear:both;"></div>
