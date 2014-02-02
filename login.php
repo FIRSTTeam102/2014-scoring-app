@@ -26,7 +26,6 @@ if (!$link) {
     exit();
 }else if($password && $initials && $alliance != ""){
 
-	
 	$_SESSION['initials'] = $initials;
 	$_SESSION['password'] = $password;
 	$_SESSION['alliance'] = $alliance;

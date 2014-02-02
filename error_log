@@ -88,3 +88,9 @@
 [31-Jan-2014 18:15:59 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/choosematch.php on line 8
 [01-Feb-2014 09:01:28 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/autonomous.php on line 7
 [01-Feb-2014 09:01:28 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/autonomous.php on line 9
+[01-Feb-2014 09:50:05 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/choosematch.php on line 6
+[01-Feb-2014 09:50:05 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/choosematch.php on line 8
+[01-Feb-2014 17:56:46 America/Chicago] PHP Warning:  mysqli_connect(): (HY000/2005): Unknown MySQL server host 'team102.org:3306' (2) in /home/team102/public_html/2014/login.php on line 9
+[01-Feb-2014 17:56:46 America/Chicago] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/team102/public_html/2014/login.php on line 10
+[01-Feb-2014 17:56:46 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/team102/public_html/2014/login.php on line 11
+[01-Feb-2014 18:07:12 America/Chicago] PHP Parse error:  syntax error, unexpected ''</div><div style="clear:both;' (T_ENCAPSED_AND_WHITESPACE) in /home/team102/public_html/2014/choosematch.php on line 93

@@ -26,10 +26,35 @@
     <meta charset="utf-8" />
     <title><? echo $_SESSION['tournament']->Title; ?></title>
     <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />
+	<script type='text/javascript' src='http://code.jquery.com/jquery-1.4.4.min.js'></script>
     <link rel="stylesheet" href="stylesheet.css" />
     <!--[if IE]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
+	<![endif]-->
+	<script type='text/javascript'>//<![CDATA[ 
+		$(window).load(function(){
+			<?php
+			for ($i = 1; $i <= 3; $i++) {
+			?>
+				$("#chkTeam<?php echo $i ?>HasBall").click(function() {				
+					$("#chkScoreHot<?php echo $i ?>").attr("checked", false); 
+					$("#rdoScoreNone<?php echo $i ?>").attr("checked", true); 
+					$("#rdoScoreHigh<?php echo $i ?>").attr("disabled", !this.checked); 
+					$("[for='rdoScoreHigh<?php echo $i ?>']").css("color", !this.checked ? "grey" : "white"); 
+					$("#rdoScoreLow<?php echo $i ?>").attr("disabled", !this.checked); 
+					$("[for='rdoScoreLow<?php echo $i ?>']").css("color", !this.checked ? "grey" : "white"); 
+					$("#rdoScoreNone<?php echo $i ?>").attr("disabled", !this.checked); 
+					$("[for='rdoScoreNone<?php echo $i ?>']").css("color", !this.checked ? "grey" : "white"); 
+					$("#chkScoreHot<?php echo $i ?>").attr("disabled", !this.checked); 
+					$("[for='chkScoreHot<?php echo $i ?>']").css("color", !this.checked ? "grey" : "white"); 
+				});
+			<?php
+			}
+			?>
+			});
+			//]]>
+	</script>
+
 </head>
 <body class="no-js">
     <div id="page">
@@ -39,96 +64,51 @@
             <div id="autonomous">Autonomous</div>
         </div>
         <form id="autonomousForm" action="teleop.html">
-            <div id="Team1" class="team">
-                <div id="Team1Number" class="teamNumber">102</div>
-                <div id="Team1AutoScore">
-					<div id="Team1HasBall">
-						<input type="checkbox" name="chkTeam1HasBallName" id="chkTeam1HasBall" value="Team-1-HasBall" checked="true" />
-						<label for="chkTeam1HasBall">Has Ball</label>
+		<?php
+			for ($i = 1; $i <= 3; $i++) {
+				if($i == 1)
+					$teamNumber = $_SESSION['match']->team1;
+				else if($i == 2)
+					$teamNumber = $_SESSION['match']->team2;
+				else
+					$teamNumber = $_SESSION['match']->team3;
+			?>
+            <div id="Team<?php echo $i ?>" class="team">
+                <div id="Team<?php echo $i ?>Number" class="teamNumber"><?php echo $teamNumber ?></div>
+                <div id="Team<?php echo $i ?>AutoScore">
+					<div id="Team<?php echo $i ?>HasBall">
+						<input type="checkbox" name="chkTeam<?php echo $i ?>HasBallName" id="chkTeam<?php echo $i ?>HasBall" 
+							value="Team-<?php echo $i ?>-HasBall"  checked/>
+						<label for="chkTeam<?php echo $i ?>HasBall">Has Ball</label>
 					</div>
-                    <div id="Team1ScoreHigh">
-                        <input type="radio" name="rdoScore1" id="rdoScoreHigh1" value="Team-1-High" />
-                        <label for="rdoScoreHigh1">High</label>
+                    <div id="Team<?php echo $i ?>ScoreHigh">
+                        <input type="radio" name="rdoScore<?php echo $i ?>" id="rdoScoreHigh<?php echo $i ?>" value="Team-<?php echo $i ?>-High"/>
+                        <label for="rdoScoreHigh<?php echo $i ?>">High</label>
                     </div>
-                    <div id="Team1ScoreLow">
-                        <input type="radio" name="rdoScore1" id="rdoScoreLow1" value="Team-1-Low" />
-                        <label for="rdoScoreLow1">Low</label>
+                    <div id="Team<?php echo $i ?>ScoreLow">
+                        <input type="radio" name="rdoScore<?php echo $i ?>" id="rdoScoreLow<?php echo $i ?>" value="Team-<?php echo $i ?>-Low"/>
+                        <label for="rdoScoreLow<?php echo $i ?>">Low</label>
                     </div>
-                    <div id="Team1ScoreLow">
-                        <input type="radio" name="rdoScore1" id="rdoScoreNone1" value="Team-1-None" checked="true" />
-                        <label for="rdoScoreNone1">None</label>
+                    <div id="Team<?php echo $i ?>ScoreNone">
+                        <input type="radio" name="rdoScore<?php echo $i ?>" id="rdoScoreNone<?php echo $i ?>" value="Team-<?php echo $i ?>-None" checked="true"/>
+                        <label for="rdoScoreNone<?php echo $i ?>">None</label>
                     </div>
-                </div>
-				<div id="Team1Hot">
-                    <input type="checkbox" name="chkTeam1HotName" id="chkTeam1Hot" value="Team-1-Hot" />
-                    <label for="chkTeam1Hot">Hot</label>
-                </div>
-                <div id="Team1Mobility">
-                    <input type="checkbox" name="chkTeam1MobilityName" id= "chkTeamMobility" value="Team-1-Mobility" />
-                    <label for="chkTeamMobility">Mobility</label>
+					<div id="Team<?php echo $i ?>Hot">
+						<input type="checkbox" name="chkTeam<?php echo $i ?>HotName" id="chkScoreHot<?php echo $i ?>" value="Team-<?php echo $i ?>-Hot"/>
+						<label for="chkScoreHot<?php echo $i ?>">Hot</label>
+					</div>
+					<div id="Team<?php echo $i ?>Mobility">
+						<input type="checkbox" name="chkTeam<?php echo $i ?>MobilityName" id= "chkMobility<?php echo $i ?>" value="Team-<?php echo $i ?>-Mobility" />
+						<label for="chkMobility<?php echo $i ?>">Mobility</label>
+					</div>
                 </div>
             </div>
-            <div id="Team2" class="team">
-                <div id="Team2Number" class="teamNumber">303</div>
-                <div id="Team2AutoScore">
-					<div id="Team2HasBall">
-						<input type="checkbox" name="chkTeam2HasBallName" id="chkTeam2HasBall" value="Team-2-HasBall" checked="true" />
-						<label for="chkTeam2HasBall">Has Ball</label>
-					</div>
-                    <div id="Team2ScoreHigh">
-                        <input type="radio" name="rdoScore2" id="rdoScoreHigh2" value="Team-2-High" />
-                        <label for="rdoScoreHigh2">High</label>
-                    </div>
-                    <div id="Team2ScoreLow">
-                        <input type="radio" name="rdoScore2" id="rdoScoreLow2" value="Team-2-Low" />
-                        <label for="rdoScoreLow2">Low</label>
-                    </div>
-                    <div id="Team2ScoreLow">
-                        <input type="radio" name="rdoScore2" id="rdoScoreNone2" value="Team-2-None" checked="true" />
-                        <label for="rdoScoreNone2">None</label>
-                    </div>
-                </div>
-				<div id="Team2Hot">
-                    <input type="checkbox" name="chkTeam2HotName" id="chkTeam2Hot" value="Team-2-Hot" />
-                    <label for="chkTeam2Hot">Hot</label>
-                </div>
-                <div id="Team2Mobility">
-                    <input type="checkbox" name="chkTeam2MobilityName" id="chkTeam2Mobility" value="Team-2-Mobility" />
-                    <label for="chkTeam2Mobility">Mobility</label>
-                </div>
-            </div>
-            <div id="Team3" class="team">
-                <div id="Team3Number" class="teamNumber">2547</div>
-                <div id="Team3AutoScore">
-					<div id="Team3HasBall">
-						<input type="checkbox" name="chkTeam3HasBallName" id="chkTeam3HasBall" value="Team-3-HasBall"  checked="true"/>
-						<label for="chkTeam3HasBall">Has Ball</label>
-					</div>
-                    <div id="Team3ScoreHigh">
-                        <input type="radio" name="rdoScore3" id="rdoScoreHigh3" value="Team-3-High" />
-                        <label for="rdoScoreHigh3">High</label>
-                    </div>
-                    <div id="Team3ScoreLow">
-                        <input type="radio" name="rdoScore3" id="rdoScoreLow3" value="Team-3-Low" />
-                        <label for="rdoScoreLow3">Low</label>
-                    </div>
-                    <div id="Team3ScoreLow">
-                        <input type="radio" name="rdoScore3" id="rdoScoreNone3" value="Team-3-None" checked="true" />
-                        <label for="rdoScoreNone3">None</label>
-                    </div>
-                </div>
-				<div id="Team3Hot">
-                    <input type="checkbox" name="chkTeam3HotName" id="chkTeam3Hot" value="Team-3-Hot" />
-                    <label for="chkTeam3Hot">Hot</label>
-                </div>
-                <div id="Team3Mobility">
-                    <input type="checkbox" name="chkTeam3MobilityName" id="chkTeam3Mobility" value="Team-3-Mobility" />
-                    <label for="chkTeam3Mobility">Mobility</label>
-                </div>
-            </div>
+		<?php
+			}
+		?>
             <div style="clear:both;"></div>
             <div class="footer">
-                <div id="Score">Score: 37</div>
+                <div id="Score" class="<?php echo strtolower($_SESSION['alliance']) ?>">Score: 37</div>
                 <div id="nav">
                     <button type="button" class="btnBack" onclick="history.back();">Back</button>
                     <input type="submit" name="btnNext" value="Next" />
@@ -136,7 +116,6 @@
             </div>
         </form>
     </div>
-    <script src="js/jquery.js"></script>
     <script src="js/modernizr.js"></script>
 </body>
 </html>

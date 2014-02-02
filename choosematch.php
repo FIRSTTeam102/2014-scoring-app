@@ -53,11 +53,6 @@ if (!$result || !$matches) {
     echo 'MySQL Error: ' . mysql_error();
     exit;
 }
-	
-
-	
-	
-	
 ?>
 <html lang="en">
 <head>
@@ -83,19 +78,19 @@ if (!$result || !$matches) {
                 </div>
                 <div id="Match">
                     <div>Choose a Match</div>
-                    <div id="MatchList">
+                    <div id="MatchList" style="margin-left:auto;margin-right:auto;width:50%;">
                     <?
                     	while($row = mysql_fetch_assoc($matches)) {
-                    		echo '<label for="rdoMatch' . $row["match_number"] .'" style="font-size:.8em;">' 
-								. "<div class='team_holder' style=' float:left; width:9em;text-align:center;'>" 
+                    		echo '<label for="rdoMatch' . $row['match_number'] .'" style="font-size:.8em;">' 
+								. '<div class="team_holder" style="float:left; width:9em;text-align:center;">' 
 								. '<input type="radio" name="rdoMatch" id="rdoMatch' . $row["match_number"] .'" value=' 
 								. $row["match_number"] . '/>' 
                     			. "#" . $row["match_number"] 
                     			. " @ " . $row["start_time"] ."</div>"
-                    			. "<div style=' float:left; width:2.2em;text-align:center;' class='team_holder'> " . $row["team1"] 
-								. "</div> <div style=' float:left; width:2.2em;text-align:center;' class='team_holder'>" .$row["team3"] 
-								. "</div> <div style=' float:left; width:2.2em;text-align:center;' class='team_holder'>" . $row["team2"] 
-								. "</div><div style='clear:both;'></div> " . '</label>';
+                    			. '<div style="float:left; width:3em;text-align:right;" class="team_holder">' . $row['team1'] 
+								. '</div> <div style="float:left; width:3em;text-align:right;" class="team_holder">' .$row['team3'] 
+								. '</div> <div style="float:left; width:3em;text-align:right;" class="team_holder">' . $row['team2'] 
+								. '</div><div style="clear:both;"></div></label>';
 		    	}
                     ?>
                     </div>
