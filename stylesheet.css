@@ -63,10 +63,28 @@ body div {
 #Initials input, #Password input {
     width: 100px;
 }
-#team_holder div {
+#nav
+{
+	padding: 10px 3px;
+}
+#Match div
+{
+	padding: 5px 0;
+	margin: 0;
+}
+#Match .match_number
+{
 	float:left; 
-	width:2.2em;
-	text-align:center;
+	width:8.5em;
+	text-align:left;
+	padding: 3px 2px; 
+	margin-left: 5px;
+}
+#Match .team_holder {
+	float:left; 
+	width:3em;
+	text-align:right; 
+	padding: 3px 2px;
 }
 .blue {
     background-color: blue;

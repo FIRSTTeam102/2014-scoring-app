@@ -70,33 +70,35 @@ if (!$result || !$matches) {
         	<div id="competition"><? echo $tournament->Title; ?></div>
             <div id="competition"></div>
             <div id="AllianceColor" class=<? echo $_SESSION['alliance']; ?>><?php echo $_SESSION['alliance']; ?> Alliance</div>
-			               
-            <form id="MatchForm" action="autonomous.php">
-				<div id="nav">
-                    <button type="button" class="btnBack" onclick="history.back();">Back</button>
-                    <input type="submit" name="btnOK" value="OK" />
-                </div>
-                <div id="Match">
-                    <div>Choose a Match</div>
-                    <div id="MatchList" style="margin-left:auto;margin-right:auto;width:50%;">
-                    <?
-                    	while($row = mysql_fetch_assoc($matches)) {
-                    		echo '<label for="rdoMatch' . $row['match_number'] .'" style="font-size:.8em;">' 
-								. '<div class="team_holder" style="float:left; width:9em;text-align:center;">' 
-								. '<input type="radio" name="rdoMatch" id="rdoMatch' . $row["match_number"] .'" value=' 
-								. $row["match_number"] . '/>' 
-                    			. "#" . $row["match_number"] 
-                    			. " @ " . $row["start_time"] ."</div>"
-                    			. '<div style="float:left; width:3em;text-align:right;" class="team_holder">' . $row['team1'] 
-								. '</div> <div style="float:left; width:3em;text-align:right;" class="team_holder">' .$row['team3'] 
-								. '</div> <div style="float:left; width:3em;text-align:right;" class="team_holder">' . $row['team2'] 
-								. '</div><div style="clear:both;"></div></label>';
-		    	}
-                    ?>
-                    </div>
-                </div>
-            </form>
-        </div>
+		</div>	               
+		<form id="MatchForm" action="autonomous.php">
+			<div id="nav">
+				<button type="button" class="btnBack" onclick="history.back();">Back</button>
+				<input type="submit" name="btnOK" value="OK" />
+			</div>
+			<div id="Match">
+				<div>Choose a Match</div>
+				<div id="MatchList" style="margin-left:auto;margin-right:auto;width:100%;font-size:.8em;">
+					<?php
+					while($row = mysql_fetch_assoc($matches)) {
+					?>
+						<label for="rdoMatch<?php echo $row['match_number'] ?>"> 
+							<div class="match_number">
+								<input type="radio" name="rdoMatch" id="rdoMatch<?php echo $row['match_number'] ?>" 
+									value="<?php echo $row['match_number'] ?>"/> 
+								#<?php echo $row['match_number'] ?> @ <?php echo $row['start_time'] ?>
+							</div>
+							<div class="team_holder"><?php echo $row['team1']?></div>
+							<div class="team_holder"><?php echo $row['team2']?></div>
+							<div class="team_holder"><?php echo $row['team3']?></div>
+							<div style="clear:both;"></div>
+						</label>
+					<?php
+					}
+					?>
+				</div>
+			</div>
+		</form>
     </div>
     <script src="js/jquery.js"></script>
     <script src="js/modernizr.js"></script>
