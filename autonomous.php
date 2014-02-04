@@ -13,7 +13,29 @@
 	
 	$match_number  = $_GET['rdoMatch'];
 	
-	$sql = sprintf("SELECT * FROM matches WHERE match_number = '%s'", $match_number);
+	$sql = sprintf("select mt1.match_number, m.start_time, mt1.team_number as team1, mt2.team_number as team2, mt3.team_number as team3
+		from matches m, match_teams mt1, match_teams mt2, match_teams mt3, tournaments t
+		where t.active = 'Y'
+		and m.tournament_id = t.id
+		and mt1.tournament_id = m.tournament_id
+		and mt1.match_number = m.match_number
+		and mt1.match_number = %s
+		and mt1.alliance = '%s'
+		and mt1.seq_no = 1
+		and mt2.team_number != mt1.team_number
+		and mt2.tournament_id = mt1.tournament_id
+		and mt2.match_number = mt1.match_number
+		and mt2.completed = mt1.completed
+		and mt2.alliance = mt1.alliance
+		and mt2.seq_no = 2
+		and mt3.team_number != mt1.team_number
+		and mt3.team_number != mt2.team_number
+		and mt3.tournament_id = mt1.tournament_id
+		and mt3.match_number = mt1.match_number
+		and mt3.completed = mt1.completed
+		and mt3.alliance = mt1.alliance
+		and mt3.seq_no = 3", $match_number, $_SESSION['alliance']);
+		
 	$matches = mysql_query($sql, $link);
 	
 	$match =  mysql_fetch_object($matches);
@@ -63,7 +85,7 @@
             <div id="match">Match <? echo $_SESSION['match']->match_number . " - " . $_SESSION['match']->start_time . " - " . $_SESSION['alliance']; ?></div>
             <div id="autonomous">Autonomous</div>
         </div>
-        <form id="autonomousForm" action="teleop.html">
+        <form id="autonomousForm" action="autoextra.php">
 		<?php
 			for ($i = 1; $i <= 3; $i++) {
 				if($i == 1)
