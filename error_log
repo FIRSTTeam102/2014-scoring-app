@@ -100,3 +100,11 @@
 [03-Feb-2014 21:01:03 America/Chicago] PHP Warning:  mysql_fetch_object(): supplied argument is not a valid MySQL result resource in /home/team102/public_html/2014/autoextra.php on line 41
 [03-Feb-2014 21:03:18 America/Chicago] PHP Warning:  mysql_fetch_object(): supplied argument is not a valid MySQL result resource in /home/team102/public_html/2014/autoextra.php on line 41
 [03-Feb-2014 21:04:09 America/Chicago] PHP Warning:  mysql_fetch_object(): supplied argument is not a valid MySQL result resource in /home/team102/public_html/2014/autoextra.php on line 41
+[06-Feb-2014 19:52:13 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/autoextra.php on line 7
+[06-Feb-2014 19:52:14 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/autoextra.php on line 9
+[07-Feb-2014 20:57:44 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/autonomous.php on line 7
+[07-Feb-2014 20:57:44 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/autonomous.php on line 9
+[07-Feb-2014 20:57:48 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/autonomous.php on line 7
+[07-Feb-2014 20:57:48 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/autonomous.php on line 9
+[08-Feb-2014 18:23:13 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/autonomous.php on line 7
+[08-Feb-2014 18:23:13 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/autonomous.php on line 9

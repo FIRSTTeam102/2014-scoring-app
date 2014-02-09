@@ -48,19 +48,23 @@
     <meta charset="utf-8" />
     <title><? echo $_SESSION['tournament']->Title; ?></title>
     <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />
-	<script type='text/javascript' src='http://code.jquery.com/jquery-1.4.4.min.js'></script>
+	<script type='text/javascript' src='jqueryui/js/jquery-1.10.2.js'></script>
     <link rel="stylesheet" href="stylesheet.css" />
     <!--[if IE]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 	<script type='text/javascript'>//<![CDATA[ 
 		$(window).load(function(){
+			$( "#Score" ).text('Score: 0');
+			// Function to recalculate the score whenever an input control changes.
+			$( "input" ).change(function() { calcScore(); })
+
 			<?php
 			for ($i = 1; $i <= 3; $i++) {
 			?>
 				$("#chkTeam<?php echo $i ?>HasBall").click(function() {				
 					$("#chkScoreHot<?php echo $i ?>").attr("checked", false); 
-					$("#rdoScoreNone<?php echo $i ?>").attr("checked", true); 
+					$("#rdoScoreNone<?php echo $i ?>").prop("checked", true); 
 					$("#rdoScoreHigh<?php echo $i ?>").attr("disabled", !this.checked); 
 					$("[for='rdoScoreHigh<?php echo $i ?>']").css("color", !this.checked ? "grey" : "white"); 
 					$("#rdoScoreLow<?php echo $i ?>").attr("disabled", !this.checked); 
@@ -69,14 +73,44 @@
 					$("[for='rdoScoreNone<?php echo $i ?>']").css("color", !this.checked ? "grey" : "white"); 
 					$("#chkScoreHot<?php echo $i ?>").attr("disabled", !this.checked); 
 					$("[for='chkScoreHot<?php echo $i ?>']").css("color", !this.checked ? "grey" : "white"); 
-				});
+					calcScore();
+			});
 			<?php
 			}
 			?>
-			});
-			//]]>
+		});
+		//]]>
 	</script>
+	<script type='text/javascript'>//<![CDATA[ 
+		function calcScore()
+		{
+			total = 0;
+			<?php
+			for ($i = 1; $i <= 3; $i++) {
+			?>
+				if(!( $( "#rdoScoreNone<?php echo $i ?>" ).prop( "checked" ) ))
+				{
+					if( $( "#rdoScoreHigh<?php echo $i ?>" ).prop( "checked" ) )
+						total += 10;			
+					if( $( "#rdoScoreLow<?php echo $i ?>" ).prop( "checked" ) )
+						total += 1;
+					total += 5;
+					
+					if( $( "#chkScoreHot<?php echo $i ?>" ).prop( "checked" ) )
+						total += 5;
+				}
+				total += ( $( "#chkMobility<?php echo $i ?>" ).prop( "checked" ) ) ? 5 : 0;
+			<?php
+			}
+			?>
 
+			$( "#Score" ).text('Score: ' + total);
+		};
+	//]]>
+	</script>
+	<script type='text/javascript'>//<![CDATA[ 
+	//]]>
+	</script>
 </head>
 <body class="no-js">
     <div id="page">
@@ -138,6 +172,5 @@
             </div>
         </form>
     </div>
-    <script src="js/modernizr.js"></script>
 </body>
 </html>
