@@ -12,7 +12,11 @@
 	}
 	
 	$match_number  = $_SESSION['match']->match_number;
-	
+	if(!$match_number)
+	{
+		header("Location: scoringapp.php"); 	/* Redirect browser */
+		exit();
+	}
 	$sql = sprintf("select mt1.match_number, m.start_time, mt1.team_number as team1, mt2.team_number as team2, mt3.team_number as team3
 		from matches m, match_teams mt1, match_teams mt2, match_teams mt3, tournaments t
 		where t.active = 'Y'
@@ -41,7 +45,7 @@
 	$match =  mysql_fetch_object($matches);
 	
 	$_SESSION['match'] = $match;
-	$numBalls = 2;					// TODO: set the number of balls from the last form.
+	$numBalls = $_SESSION['numExtraBalls'];					
 ?>
 <html lang="en">
 <head>

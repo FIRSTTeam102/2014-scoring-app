@@ -4,6 +4,14 @@
 
 	session_start();
 	
+	// if we cannot get the password from session - redirect to the starting page.
+	if(!$_SESSION['password'])
+	{
+		header("Location: scoringapp.php"); 	/* Redirect browser */
+		exit();
+	}
+	
+	// Connect to the database.
 	$link = mysql_connect('team102.org:3306', 'team102_webuser', $_SESSION['password']);
 	
 	if (!mysql_select_db('team102_2014', $link)) {
@@ -11,7 +19,19 @@
     		exit;
 	}
 	
-	$match_number  = $_GET['rdoMatch'];
+	// Get the match number from the choosematch page.
+	$match_number  = $_POST['rdoMatch'];
+	if($match_number != null)
+		$_SESSION['match_number'] = $match_number;
+	else
+		$match_number = $_SESSION['match_number'];	
+		
+	// If we don't have a match number we cannot continue.
+	if(!$match_number)
+	{
+		header("Location: scoringapp.php"); 	/* Redirect browser */
+		exit();
+	}
 	
 	$sql = sprintf("select mt1.match_number, m.start_time, mt1.team_number as team1, mt2.team_number as team2, mt3.team_number as team3
 		from matches m, match_teams mt1, match_teams mt2, match_teams mt3, tournaments t
@@ -42,6 +62,89 @@
 	
 	$_SESSION['match'] = $match;
 
+	// if the next button has been clicked, save the results and redirect to either the AutoExtra or the Teleop
+	if(isset($_POST['btnNext']))
+	{
+		
+//		var_dump($_POST);	// Use this to see a dump of the _POST variables.
+//		echo '<br>';
+
+//		mysql_query("START TRANSACTION;", $link);
+		// No validations are necessary.
+		$sql = sprintf("update match_teams
+							set has_ball = '%s', auto_goal = '%s', auto_goal_hot = '%s', auto_mobility = '%s'
+							where tournament_id = '%s' and match_number = %s and team_number = %s"
+							, isset($_POST['chkTeam1HasBallName']) ? "Y" : "N"
+							, $_POST['rdoScore1']
+							, isset($_POST['chkTeam1HotName']) ? "Y" : "N"
+							, isset($_POST['chkTeam1MobilityName']) ? "Y" : "N"
+							, $_SESSION['tournament']->ID
+							, $match_number
+							, $_SESSION['match']->team1
+							);
+		$updateReturn = mysql_query($sql, $link);
+		if(!$updateReturn)
+			die("Error updating match-team 1 " . mysql_error());
+//		echo $sql;
+//		echo '<br>';
+		$sql = sprintf("update match_teams
+							set has_ball = '%s', auto_goal = '%s', auto_goal_hot = '%s', auto_mobility = '%s'
+							where tournament_id = '%s' and match_number = %s and team_number = %s"
+							, isset($_POST['chkTeam2HasBallName']) ? "Y" : "N"
+							, $_POST['rdoScore2']
+							, isset($_POST['chkTeam2HotName']) ? "Y" : "N"
+							, isset($_POST['chkTeam2MobilityName']) ? "Y" : "N"
+							, $_SESSION['tournament']->ID
+							, $match_number
+							, $_SESSION['match']->team2
+							);
+		$updateReturn = mysql_query($sql, $link);
+		if(!$updateReturn)
+			die("Error updating match-team 2 " . mysql_error());
+//		echo $sql;
+//		echo '<br>';
+		$sql = sprintf("update match_teams
+							set has_ball = '%s', auto_goal = '%s', auto_goal_hot = '%s', auto_mobility = '%s'
+							where tournament_id = '%s' and match_number = %s and team_number = %s"
+							, isset($_POST['chkTeam3HasBallName']) ? "Y" : "N"
+							, $_POST['rdoScore3']
+							, isset($_POST['chkTeam3HotName']) ? "Y" : "N"
+							, isset($_POST['chkTeam3MobilityName']) ? "Y" : "N"
+							, $_SESSION['tournament']->ID
+							, $match_number
+							, $_SESSION['match']->team3
+							);
+		$updateReturn = mysql_query($sql, $link);
+		if(!$updateReturn)
+			die("Error updating match-team 3 " . mysql_error());
+//		echo $sql;
+//		echo '<br>';
+		
+//		$updateReturn = mysql_query("COMMIT;", $link);
+		mysql_close ($link);
+		
+		// Figure out where to redirect (autoextra if not all balls have been scored)
+		$numBalls = (isset($_POST['chkTeam1HasBallName']) ? 1 : 0) + (isset($_POST['chkTeam2HasBallName']) ? 1 : 0) + (isset($_POST['chkTeam3HasBallName']) ? 1 : 0);
+//		echo "Balls: " + $numBalls;
+//		echo '<br>';
+		$numScored = ((($_POST['rdoScore1'] == 'H') || ($_POST['rdoScore1'] == 'L')) ? 1 : 0)
+						+ ((($_POST['rdoScore2'] == 'H') || ($_POST['rdoScore2'] == 'L')) ? 1 : 0)
+						+ ((($_POST['rdoScore3'] == 'H') || ($_POST['rdoScore3'] == 'L')) ? 1 : 0);
+//		echo "Num Scored: " + $numScored;
+//		echo '<br>';
+		$numRemaining = $numBalls - $numScored;
+		$_SESSION['numExtraBalls'] = $numRemaining;
+		if($numRemaining > 0)
+		{
+			header("Location: autoextra.php"); /* Redirect browser */
+			exit();
+		}
+		else
+		{
+			header("Location: teleop.html"); /* Redirect browser */
+			exit();		
+		}
+	}
 ?>
 <html lang="en">
 <head>
@@ -56,20 +159,22 @@
 	<script type='text/javascript'>//<![CDATA[ 
 		$(window).load(function(){
 			$( "#Score" ).text('Score: 0');
-			// Function to recalculate the score whenever an input control changes.
+			
+			// Event handler to recalculate the score whenever an input control changes.
 			$( "input" ).change(function() { calcScore(); })
 
+			// Generate three event handlers to disable/enable inputs when the "Has Ball" checkbox changes.
 			<?php
 			for ($i = 1; $i <= 3; $i++) {
 			?>
 				$("#chkTeam<?php echo $i ?>HasBall").click(function() {				
 					$("#chkScoreHot<?php echo $i ?>").attr("checked", false); 
-					$("#rdoScoreNone<?php echo $i ?>").prop("checked", true); 
+					$("#rdoScoreNone<?php echo $i ?>").prop("checked", true);
 					$("#rdoScoreHigh<?php echo $i ?>").attr("disabled", !this.checked); 
 					$("[for='rdoScoreHigh<?php echo $i ?>']").css("color", !this.checked ? "grey" : "white"); 
 					$("#rdoScoreLow<?php echo $i ?>").attr("disabled", !this.checked); 
 					$("[for='rdoScoreLow<?php echo $i ?>']").css("color", !this.checked ? "grey" : "white"); 
-					$("#rdoScoreNone<?php echo $i ?>").attr("disabled", !this.checked); 
+					// $("#rdoScoreNone<?php echo $i ?>").attr("disabled", !this.checked); 
 					$("[for='rdoScoreNone<?php echo $i ?>']").css("color", !this.checked ? "grey" : "white"); 
 					$("#chkScoreHot<?php echo $i ?>").attr("disabled", !this.checked); 
 					$("[for='chkScoreHot<?php echo $i ?>']").css("color", !this.checked ? "grey" : "white"); 
@@ -79,9 +184,8 @@
 			}
 			?>
 		});
-		//]]>
-	</script>
-	<script type='text/javascript'>//<![CDATA[ 
+
+		// Function to calculate the score.
 		function calcScore()
 		{
 			total = 0;
@@ -119,7 +223,7 @@
             <div id="match">Match <? echo $_SESSION['match']->match_number . " - " . $_SESSION['match']->start_time . " - " . $_SESSION['alliance']; ?></div>
             <div id="autonomous">Autonomous</div>
         </div>
-        <form id="autonomousForm" action="autoextra.php">
+        <form id="autonomousForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 		<?php
 			for ($i = 1; $i <= 3; $i++) {
 				if($i == 1)
@@ -138,15 +242,15 @@
 						<label for="chkTeam<?php echo $i ?>HasBall">Has Ball</label>
 					</div>
                     <div id="Team<?php echo $i ?>ScoreHigh">
-                        <input type="radio" name="rdoScore<?php echo $i ?>" id="rdoScoreHigh<?php echo $i ?>" value="Team-<?php echo $i ?>-High"/>
+                        <input type="radio" name="rdoScore<?php echo $i ?>" id="rdoScoreHigh<?php echo $i ?>" value="H"/>
                         <label for="rdoScoreHigh<?php echo $i ?>">High</label>
                     </div>
                     <div id="Team<?php echo $i ?>ScoreLow">
-                        <input type="radio" name="rdoScore<?php echo $i ?>" id="rdoScoreLow<?php echo $i ?>" value="Team-<?php echo $i ?>-Low"/>
+                        <input type="radio" name="rdoScore<?php echo $i ?>" id="rdoScoreLow<?php echo $i ?>" value="L"/>
                         <label for="rdoScoreLow<?php echo $i ?>">Low</label>
                     </div>
                     <div id="Team<?php echo $i ?>ScoreNone">
-                        <input type="radio" name="rdoScore<?php echo $i ?>" id="rdoScoreNone<?php echo $i ?>" value="Team-<?php echo $i ?>-None" checked="true"/>
+                        <input type="radio" name="rdoScore<?php echo $i ?>" id="rdoScoreNone<?php echo $i ?>" value="N" checked="true"/>
                         <label for="rdoScoreNone<?php echo $i ?>">None</label>
                     </div>
 					<div id="Team<?php echo $i ?>Hot">

@@ -3,6 +3,13 @@
 
 	session_start();
 	
+	// if we cannot get the password from session - redirect to the starting page.
+	if(!$_SESSION['password'])
+	{
+		header("Location: scoringapp.php"); 	/* Redirect browser */
+		exit();
+	}
+
 	$link = mysql_connect('team102.org:3306', 'team102_webuser', $_SESSION['password']);
 	
 	if (!mysql_select_db('team102_2014', $link)) {
@@ -71,7 +78,7 @@ if (!$result || !$matches) {
             <div id="competition"></div>
             <div id="AllianceColor" class=<? echo $_SESSION['alliance']; ?>><?php echo $_SESSION['alliance']; ?> Alliance</div>
 		</div>	               
-		<form id="MatchForm" action="autonomous.php">
+		<form id="MatchForm" action="autonomous.php" method="POST">
 			<div id="nav">
 				<button type="button" class="btnBack" onclick="history.back();">Back</button>
 				<input type="submit" name="btnOK" value="OK" />
