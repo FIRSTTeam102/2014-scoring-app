@@ -10,30 +10,28 @@
 		exit();
 	}
 
-	$link = mysql_connect('team102.org:3306', 'team102_webuser', $_SESSION['password']);
-	
-	if (!mysql_select_db('team102_2014', $link)) {
-    		echo 'Could not select database';
-    		exit;
+	$db = new mysqli("localhost", "team102_webuser", $_SESSION['password'], "team102_2014");
+	if (mysqli_connect_errno()) {
+		$_SESSION['error'] = sprintf("Database Connect failed: %s", mysqli_connect_error());
+		header ("location: scoringapp.php");
+		exit();
 	}
-	
 	$sql    = 'SELECT * FROM tournaments WHERE active = "Y"';
-	$result = mysql_query($sql, $link);
+	$result = $db->query($sql);
 	
-	$tournament = mysql_fetch_object($result);
-
+	$tournament = $result->fetch_assoc();
 	$_SESSION['tournament'] = $tournament;
 
-	$tournament_id = $tournament->ID;
+	$tournament_id = $tournament['ID'];
 
-	$sqll = sprintf("select mt1.match_number, m.start_time, mt1.team_number as team1, mt2.team_number as team2, mt3.team_number as team3
+	$sqll = "select mt1.match_number, m.start_time, mt1.team_number as team1, mt2.team_number as team2, mt3.team_number as team3
 		from matches m, match_teams mt1, match_teams mt2, match_teams mt3, tournaments t
 		where t.active = 'Y'
 		and m.tournament_id = t.id
 		and mt1.tournament_id = m.tournament_id
 		and mt1.match_number = m.match_number
 		and mt1.completed = 'N'
-		and mt1.alliance = '%s'
+		and mt1.alliance = ?
 		and mt1.seq_no = 1
 		and mt2.team_number != mt1.team_number
 		and mt2.tournament_id = mt1.tournament_id
@@ -48,19 +46,23 @@
 		and mt3.completed = mt1.completed
 		and mt3.alliance = mt1.alliance
 		and mt3.seq_no = 3
-		order by m.match_number;", $_SESSION['alliance']);
+		order by m.match_number;";
 		
-		# ^^^^ mt1.alliance = #
-		
-	$matches = mysql_query($sqll, $link);
+	if ($matches = $db->prepare($sqll)) {
+	    $matches->bind_param("s",  $_SESSION['alliance']);
 
-
-if (!$result || !$matches) {
-    echo "DB Error, could not query the database\n";
-    echo 'MySQL Error: ' . mysql_error();
-    exit;
-}
-?>
+	    /* execute query */
+	    $matches->execute();
+	
+	    /* bind result variables */
+	    $matches->bind_result($match_number, $start_time, $team1, $team2, $team3);
+	    }
+	else {
+	    echo "DB Error, could not query the database\n";
+	    echo 'MySQL Error: ' . mysql_error();
+	    exit;
+	}
+	?>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -87,17 +89,17 @@ if (!$result || !$matches) {
 				<div>Choose a Match</div>
 				<div id="MatchList" style="margin-left:auto;margin-right:auto;width:100%;font-size:.8em;">
 					<?php
-					while($row = mysql_fetch_assoc($matches)) {
+					while($matches->fetch()) {
 					?>
-						<label for="rdoMatch<?php echo $row['match_number'] ?>"> 
+						<label for="rdoMatch<?php echo $match_number ?>"> 
 							<div class="match_number">
-								<input type="radio" name="rdoMatch" id="rdoMatch<?php echo $row['match_number'] ?>" 
-									value="<?php echo $row['match_number'] ?>"/> 
-								#<?php echo $row['match_number'] ?> @ <?php echo $row['start_time'] ?>
+								<input type="radio" name="rdoMatch" id="rdoMatch<?php echo $match_number ?>" 
+									value="<?php echo $match_number ?>"/> 
+								#<?php echo $match_number ?> @ <?php echo $start_time ?>
 							</div>
-							<div class="team_holder"><?php echo $row['team1']?></div>
-							<div class="team_holder"><?php echo $row['team2']?></div>
-							<div class="team_holder"><?php echo $row['team3']?></div>
+							<div class="team_holder"><?php echo $team1?></div>
+							<div class="team_holder"><?php echo $team2?></div>
+							<div class="team_holder"><?php echo $team3?></div>
 							<div style="clear:both;"></div>
 						</label>
 					<?php

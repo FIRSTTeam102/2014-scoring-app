@@ -121,3 +121,23 @@
 [09-Feb-2014 19:02:19 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/team102/public_html/2014/autonomous.php:72) in /home/team102/public_html/2014/autonomous.php on line 123
 [09-Feb-2014 19:07:08 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/team102/public_html/2014/autonomous.php:73) in /home/team102/public_html/2014/autonomous.php on line 129
 [09-Feb-2014 19:32:39 America/Chicago] PHP Parse error:  syntax error, unexpected '!', expecting '(' in /home/team102/public_html/2014/autonomous.php on line 8
+[17-Feb-2014 14:06:13 America/Chicago] PHP Warning:  mysqli_connect(): (HY000/2005): Unknown MySQL server host 'team102.org:3306' (2) in /home/team102/public_html/2014/login.php on line 14
+[17-Feb-2014 14:06:13 America/Chicago] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/team102/public_html/2014/login.php on line 15
+[17-Feb-2014 14:06:13 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/team102/public_html/2014/login.php on line 16
+[17-Feb-2014 14:13:23 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[17-Feb-2014 14:13:23 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home/team102/public_html/2014/login.php on line 25
+[17-Feb-2014 14:13:23 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/choosematch.php on line 13
+[17-Feb-2014 14:13:23 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/choosematch.php on line 15
+[17-Feb-2014 14:15:10 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[17-Feb-2014 14:15:10 America/Chicago] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home/team102/public_html/2014/login.php on line 25
+[17-Feb-2014 14:15:10 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/choosematch.php on line 13
+[17-Feb-2014 14:15:10 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/choosematch.php on line 15
+[17-Feb-2014 14:18:18 America/Chicago] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/team102/public_html/2014/login.php on line 15
+[17-Feb-2014 14:19:03 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[17-Feb-2014 14:19:03 America/Chicago] PHP Fatal error:  Call to undefined method mysqli::connect_errno() in /home/team102/public_html/2014/login.php on line 14
+[17-Feb-2014 14:21:58 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[17-Feb-2014 14:32:50 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: NO) in /home/team102/public_html/2014/choosematch.php on line 13
+[17-Feb-2014 14:32:50 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/team102/public_html/2014/choosematch.php:13) in /home/team102/public_html/2014/choosematch.php on line 16
+[17-Feb-2014 14:33:23 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: NO) in /home/team102/public_html/2014/choosematch.php on line 13
+[17-Feb-2014 14:33:23 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/team102/public_html/2014/choosematch.php:13) in /home/team102/public_html/2014/choosematch.php on line 16
+[17-Feb-2014 14:59:52 America/Chicago] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/team102/public_html/2014/choosematch.php on line 59

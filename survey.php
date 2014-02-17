@@ -63,20 +63,20 @@
 					<input type="text" name="txtPreferredStartingPosName" id="txtPreferredStartingPos" style="width: 15em;"/>
 				</div>
 				<div id="divHotGoalDetect">
-					<input type="checkbox" name="chkHotGoalDetectName" value="HotGoalDetect" />
-					<label for="chkHotGoalDetectName">Hot Goal Detect</label>
+					<input type="checkbox" name="chkHotGoalDetectName" id="chkHotGoalDetect" value="HotGoalDetect" />
+					<label for="chkHotGoalDetect">Hot Goal Detect</label>
 				</div>
 				<div id="divCanScoreHigh">
-					<input type="checkbox" name="chkCanScoreHighName" value="CanScoreHigh" />
-					<label for="chkCanScoreHighName">Can  Score High</label>
+					<input type="checkbox" name="chkCanScoreHighName" id="chkCanScoreHigh" value="CanScoreHigh" />
+					<label for="chkCanScoreHigh">Can  Score High</label>
 				</div>
 				<div id="divMobilityBonus">
-					<input type="checkbox" name="chkMobilityBonusName" value="MobilityBonus" />
-					<label for="chkMobilityBonusName">Mobility Bonus</label>
+					<input type="checkbox" name="chkMobilityBonusName" id="chkMobilityBonus" value="MobilityBonus" />
+					<label for="chkMobilityBonus">Mobility Bonus</label>
 				</div>
 				<div id="divGoalie">
-					<input type="checkbox" name="chkGoalieName" value="Goalie" />
-					<label for="chkGoalieName">Goalie</label>
+					<input type="checkbox" name="chkGoalieName" id="chkGoalie" value="Goalie" />
+					<label for="chkGoalie">Goalie</label>
 				</div>
 				<div id="divDescAutoFunction">
 					<label for="txtDescAutoFunctionName">Briefly Describe Autonomous:</label>
@@ -86,28 +86,34 @@
 			</div>
 			<div class="qSection">Tele-Op
 				<div id="divHighGoalTeleop">
-					<input type="checkbox" name="chkHighGoalTeleopName" value="HighGoalTeleop" />
-					<label for="chkHighGoalTeleopName">High Goal Scoring</label>
-					<label for="txtPctAccHighGoalName">% Accuracy:</label>
-					<input type="text" name="txtPctAccHighGoalName" id="txtPctAccHighGoal" style="width: 15em;"/>
+					<input type="checkbox" name="chkHighGoalTeleopName" id="chkHighGoalTeleop" value="HighGoalTeleop" />
+					<label for="chkHighGoalTeleop">High Goal Scoring</label>
+					<input type="text" name="txtPctAccHighGoalName" id="txtPctAccHighGoal" style="width: 3em;"/>
+					<label for="txtPctAccHighGoalName"> %</label>
 				</div>
 				<div id="divLowGoalTeleop">
-					<input type="checkbox" name="chkLowGoalTeleopName" value="LowGoalTeleop" />
-					<label for="chkLowGoalTeleopName">Low Goal Scoring</label>
-					<label for="txtPctAccLowGoalName">% Accuracy:</label>
-					<input type="text" name="txtPctAccLowGoalName" id="txtPctAccLowGoal" style="width: 15em;"/>
+					<input type="checkbox" name="chkLowGoalTeleopName" id="chkLowGoalTeleop" value="LowGoalTeleop" />
+					<label for="chkLowGoalTeleop">Low Goal Scoring</label>
+					<input type="text" name="txtPctAccLowGoalName" id="txtPctAccLowGoal" style="width: 3em;"/>
+					<label for="txtPctAccLowGoalName"> %</label>
 				</div>
 				<div id="divTrussTeleop">
-					<input type="checkbox" name="chkTrussTeleopName" value="TrussTeleop" />
-					<label for="chkTrussTeleopName">Low Goal Scoring</label>
-					<label for="txtPctAccTrussName">% Accuracy:</label>
-					<input type="text" name="txtPctAccTrussName" id="txtPctAccTruss" style="width: 15em;"/>
+					<input type="checkbox" name="chkTrussTeleopName" id="chkTrussTeleop" value="TrussTeleop" />
+					<label for="chkTrussTeleop">Truss</label>
+					<input type="text" name="txtPctAccTrussName" id="txtPctAccTruss" style="width: 3em;"/>
+					<label for="txtPctAccTrussName"> %</label>
 				</div>
 				<div id="divCatchTeleop">
-					<input type="checkbox" name="chkCatchTeleopName" value="CatchTeleop" />
-					<label for="chkCatchTeleopName">Low Goal Scoring</label>
-					<label for="txtPctAccCatchName">% Accuracy:</label>
-					<input type="text" name="txtPctAccCatchName" id="txtPctAccCatch" style="width: 15em;"/>
+					<input type="checkbox" name="chkCatchTeleopName" id="chkCatchTeleop" value="CatchTeleop" />
+					<label for="chkCatchTeleop">Catch</label>
+					<input type="text" name="txtPctAccCatchName" id="txtPctAccCatch" style="width: 3em;"/>
+					<label for="txtPctAccCatchName"> %</label>
+				</div>
+				<div id="divPickUpTeleop">
+					<input type="checkbox" name="chkPickUpTeleopName" id="chkPickUpTeleop" value="PickUpTeleop" />
+					<label for="chkPickUpTeleop">PickUp from Floor</label>
+					<input type="text" name="txtPctAccPickUpName" id="txtPctAccPickUp" style="width: 3em;"/>
+					<label for="txtPctAccPickUpName"> %</label>
 				</div>
 				<div id="divPossession">
 					Method of Possession: 
