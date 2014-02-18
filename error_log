@@ -147,3 +147,7 @@
 [17-Feb-2014 18:21:35 America/Chicago] PHP Parse error:  syntax error, unexpected '?>' in /home/team102/public_html/2014/autonomous.php on line 208
 [17-Feb-2014 18:22:39 America/Chicago] PHP Parse error:  syntax error, unexpected '?>' in /home/team102/public_html/2014/autonomous.php on line 208
 [17-Feb-2014 18:22:51 America/Chicago] PHP Parse error:  syntax error, unexpected '?>' in /home/team102/public_html/2014/autonomous.php on line 209
+[17-Feb-2014 20:49:29 America/Chicago] PHP Parse error:  syntax error, unexpected ']', expecting ',' or ';' in /home/team102/public_html/2014/teleop.php on line 117
+[17-Feb-2014 20:49:52 America/Chicago] PHP Fatal error:  Call to a member function bind_param() on a non-object in /home/team102/public_html/2014/teleop.php on line 36
+[17-Feb-2014 20:50:32 America/Chicago] PHP Warning:  Attempt to modify property of non-object in /home/team102/public_html/2014/teleop.php on line 36
+[17-Feb-2014 20:57:19 America/Chicago] PHP Parse error:  syntax error, unexpected ';' in /home/team102/public_html/2014/teleop.php on line 39

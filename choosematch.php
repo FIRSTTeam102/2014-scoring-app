@@ -58,7 +58,7 @@
 	    $matches->bind_result($match_number, $start_time, $team1, $team2, $team3);
 	    }
 	else {
-	    echo "DB Error, could not query the database\n";
+	    echo "DB Error, could not query the matches\n";
 	    echo 'MySQL Error: ' . mysql_error();
 	    exit;
 	}

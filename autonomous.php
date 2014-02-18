@@ -142,7 +142,7 @@
 		}
 		else
 		{
-			header("Location: teleop.html"); /* Redirect browser */
+			header("Location: teleop.php"); /* Redirect browser */
 			exit();		
 		}
 	}
@@ -211,9 +211,6 @@
 			$("#Score").text("Score: " + total);
 			
 		};
-	//]]>
-	</script>
-	<script type='text/javascript'>//<![CDATA[ 
 	//]]>
 	</script>
 </head>
