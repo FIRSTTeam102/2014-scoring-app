@@ -134,6 +134,7 @@
 //		echo '<br>';
 		$numRemaining = $numBalls - $numScored;
 		$_SESSION['numExtraBalls'] = $numRemaining;
+		$_SESSION['score'] = $_POST[scoreFieldName];
 		if($numRemaining > 0)
 		{
 			header("Location: autoextra.php"); /* Redirect browser */
@@ -183,6 +184,7 @@
 			<?php
 			}
 			?>
+			
 		});
 
 		// Function to calculate the score.
@@ -204,11 +206,10 @@
 						total += 5;
 				}
 				total += ( $( "#chkMobility<?php echo $i ?>" ).prop( "checked" ) ) ? 5 : 0;
-			<?php
-			}
-			?>
-
-			$( "#Score" ).text('Score: ' + total);
+			<?php }?> 
+			$("#scoreField").val(total);
+			$("#Score").text("Score: " + total);
+			
 		};
 	//]]>
 	</script>
@@ -268,7 +269,8 @@
 		?>
             <div style="clear:both;"></div>
             <div class="footer">
-                <div id="Score" class="<?php echo strtolower($_SESSION['alliance']) ?>">Score: 37</div>
+                <div id="Score" class="<?php echo strtolower($_SESSION['alliance']) ?>"></div>
+				<input type="hidden" name="scoreFieldName" id="scoreField"/>
                 <div id="nav">
                     <button type="button" class="btnBack" onclick="history.back();">Back</button>
                     <input type="submit" name="btnNext" value="Next" />

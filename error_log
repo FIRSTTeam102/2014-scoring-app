@@ -141,3 +141,9 @@
 [17-Feb-2014 14:33:23 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: NO) in /home/team102/public_html/2014/choosematch.php on line 13
 [17-Feb-2014 14:33:23 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/team102/public_html/2014/choosematch.php:13) in /home/team102/public_html/2014/choosematch.php on line 16
 [17-Feb-2014 14:59:52 America/Chicago] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/team102/public_html/2014/choosematch.php on line 59
+[17-Feb-2014 18:10:12 America/Chicago] PHP Parse error:  syntax error, unexpected '?' in /home/team102/public_html/2014/autoextra.php on line 109
+[17-Feb-2014 18:19:44 America/Chicago] PHP Parse error:  syntax error, unexpected '?>' in /home/team102/public_html/2014/autonomous.php on line 210
+[17-Feb-2014 18:21:21 America/Chicago] PHP Parse error:  syntax error, unexpected '?>' in /home/team102/public_html/2014/autonomous.php on line 208
+[17-Feb-2014 18:21:35 America/Chicago] PHP Parse error:  syntax error, unexpected '?>' in /home/team102/public_html/2014/autonomous.php on line 208
+[17-Feb-2014 18:22:39 America/Chicago] PHP Parse error:  syntax error, unexpected '?>' in /home/team102/public_html/2014/autonomous.php on line 208
+[17-Feb-2014 18:22:51 America/Chicago] PHP Parse error:  syntax error, unexpected '?>' in /home/team102/public_html/2014/autonomous.php on line 209

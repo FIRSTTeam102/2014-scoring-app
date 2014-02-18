@@ -106,7 +106,7 @@
 			</table>
             <div style="clear:both;"></div>
             <div class="footer">
-                <div id="Score" class="<?php echo strtolower($_SESSION['alliance']) ?>">Score: 37</div>
+                <div id="Score" class="<?php echo strtolower($_SESSION['alliance']) ?>">Score: <?php echo $_SESSION['score']?></div>
                 <div id="nav">
                     <button type="button" class="btnBack" onclick="history.back();">Back</button>
                     <input type="submit" name="btnNext" value="Next" />
