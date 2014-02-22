@@ -32,8 +32,10 @@
   {
      $data[] = $row;
   }
-
-  $colNames = array_keys(reset($data))
+  if($data != null)
+	$colNames = array_keys(reset($data));
+  else 
+	$colNames = null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,25 +51,32 @@
  <table border="1" id="standings">
  <tr>
     <?php
-       //print the header
-       foreach($colNames as $colName)
-       {
-          echo "<th>" . str_replace('_', ' ', $colName) . "</th>";
-       }
+		if($colNames == null)
+		{
+			echo "</tr><td>&nbsp;<tr><th>There are no standings to report.</th>";
+		}
+		else
+		{
+		   //print the header
+		   foreach($colNames as $colName)
+		   {
+			  echo "<th>" . str_replace('_', ' ', $colName) . "</th>";
+		   }
     ?>
  </tr>
 
     <?php
-       //print the rows
-       foreach($data as $row)
-       {
-          echo "<tr>";
-          foreach($colNames as $colName)
-          {
-             echo "<td>".$row[$colName]."</td>";
-          }
-          echo "</tr>";
-       }
+		   //print the rows
+		   foreach($data as $row)
+		   {
+			  echo "<tr>";
+			  foreach($colNames as $colName)
+			  {
+				 echo "<td>".$row[$colName]."</td>";
+			  }
+			  echo "</tr>";
+		   }
+		}
     ?>
  </table>
  </body>

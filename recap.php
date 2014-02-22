@@ -18,6 +18,35 @@
     		exit;
 	}
 
+	// If they have clicked the Next Match button, mark the match-teams complete and go to the choose match page.
+	if(isset($_POST['btnNext']) )
+	{
+		for($team = 1; $team <= 3; $team++)
+		{
+			if($team == 1)
+			{
+				$teamNumber = $_SESSION['match']->team1;
+			}
+			else if($team == 2)
+			{
+				$teamNumber = $_SESSION['match']->team2;
+			}
+			else if($team == 3)
+			{
+				$teamNumber = $_SESSION['match']->team3;
+			}
+			$sql = sprintf("update match_teams set completed = 'Y', initials = '%s' where tournament_id = '%s' and match_number = %s
+								and team_number = %s;"
+								, $_SESSION['initials']
+								, $_SESSION['tournament']->ID
+								, $_SESSION['match']->match_number
+								, $teamNumber);
+			$updateReturn = mysql_query($sql, $link);
+			if(!$updateReturn)
+				die("Error updating match_teams team: " . $_SESSION['match']->team1 . " Err: " . mysql_error());
+		}
+		header ("location: choosematch.php");
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +78,7 @@
             <div id="match">Match <? echo $_SESSION['match']->match_number . " - " . $_SESSION['match']->start_time . " - " . $_SESSION['match']->alliance; ?></div>
             <div>Recap</div>
         </div>
-        <form id="recapForm" action="choosematch.php" method="POST">
+        <form id="recapForm" action="recap.php" method="POST">
 		<table>
 <?php
 	$sql = sprintf("select team_number, has_ball, auto_goal, auto_goal_hot, auto_mobility, extra_goal_1, extra_goal_2, extra_goal_3

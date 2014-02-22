@@ -26,7 +26,7 @@
 
         $tournament_id = $tournament->ID;
 
-        $sqll = sprintf("select mt1.match_number, m.start_time, mt1.team_number as team1, mt2.team_number as team2, mt3.team_number as team3
+        $sqll = sprintf("select mt1.match_number, m.start_time, mt1.team_number as team1, mt2.team_number as team2, mt3.team_number as team3, mt1.initials
                 from matches m, match_teams mt1, match_teams mt2, match_teams mt3, tournaments t
                 where t.active = 'Y'
                 and m.tournament_id = t.id
@@ -98,6 +98,7 @@ if (!$result || !$matches) {
                                                         <div class="team_holder"><?php echo $row['team1']?></div>
                                                         <div class="team_holder"><?php echo $row['team2']?></div>
                                                         <div class="team_holder"><?php echo $row['team3']?></div>
+                                                        <div class="team_holder"><?php echo $row['initials']?></div>
                                                         <div style="clear:both;"></div>
                                                 </label>
                                         <?php

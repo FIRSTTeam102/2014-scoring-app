@@ -164,3 +164,9 @@
 [19-Feb-2014 16:51:48 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/teleop.php on line 28
 [19-Feb-2014 16:52:10 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'Team102_webuser'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/teleop.php on line 26
 [19-Feb-2014 16:52:10 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/teleop.php on line 28
+[21-Feb-2014 20:46:52 America/Chicago] PHP Warning:  array_keys() expects parameter 1 to be array, boolean given in /home/team102/public_html/2014/standings.php on line 36
+[21-Feb-2014 20:46:52 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/team102/public_html/2014/standings.php on line 53
+[21-Feb-2014 20:50:49 America/Chicago] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/team102/public_html/2014/standings.php on line 37
+[21-Feb-2014 20:51:15 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home/team102/public_html/2014/standings.php on line 78
+[21-Feb-2014 20:55:13 America/Chicago] PHP Fatal error:  Cannot use [] for reading in /home/team102/public_html/2014/standings.php on line 35
+[21-Feb-2014 20:56:15 America/Chicago] PHP Warning:  array_keys() expects parameter 1 to be array, boolean given in /home/team102/public_html/2014/standings.php on line 36
