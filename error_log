@@ -151,3 +151,16 @@
 [17-Feb-2014 20:49:52 America/Chicago] PHP Fatal error:  Call to a member function bind_param() on a non-object in /home/team102/public_html/2014/teleop.php on line 36
 [17-Feb-2014 20:50:32 America/Chicago] PHP Warning:  Attempt to modify property of non-object in /home/team102/public_html/2014/teleop.php on line 36
 [17-Feb-2014 20:57:19 America/Chicago] PHP Parse error:  syntax error, unexpected ';' in /home/team102/public_html/2014/teleop.php on line 39
+[18-Feb-2014 12:09:36 America/Chicago] PHP Parse error:  syntax error, unexpected '{' in /home/team102/public_html/2014/teleop.php on line 64
+[18-Feb-2014 17:28:51 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[18-Feb-2014 17:45:34 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[19-Feb-2014 16:27:06 America/Chicago] PHP Parse error:  syntax error, unexpected '$cycleNumber' (T_VARIABLE), expecting ',' or ';' in /home/team102/public_html/2014/teleop.php on line 77
+[19-Feb-2014 16:33:41 America/Chicago] PHP Parse error:  syntax error, unexpected '?>' in /home/team102/public_html/2014/teleop.php on line 194
+[19-Feb-2014 16:49:44 America/Chicago] PHP Parse error:  syntax error, unexpected '?' in /home/team102/public_html/2014/teleop.php on line 50
+[19-Feb-2014 16:50:38 America/Chicago] PHP Parse error:  syntax error, unexpected '?' in /home/team102/public_html/2014/teleop.php on line 194
+[19-Feb-2014 16:50:50 America/Chicago] PHP Warning:  mysql_connect(): Unknown MySQL server host 'Team&lt;? echo $i; ?&gt;02.org' (2) in /home/team102/public_html/2014/teleop.php on line 26
+[19-Feb-2014 16:50:51 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/teleop.php on line 28
+[19-Feb-2014 16:51:48 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'Team102_webuser'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/teleop.php on line 26
+[19-Feb-2014 16:51:48 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/teleop.php on line 28
+[19-Feb-2014 16:52:10 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'Team102_webuser'@'mamba.tntpowerhost.com' (using password: YES) in /home/team102/public_html/2014/teleop.php on line 26
+[19-Feb-2014 16:52:10 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/teleop.php on line 28

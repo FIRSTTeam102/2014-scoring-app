@@ -23,7 +23,7 @@
 	}
 
 	// Connect to the database.
-	$link = mysql_connect('team102.org:3306', 'team102_webuser', $_SESSION['password']);
+	$link = mysql_connect('Team102.org:3306', 'team102_webuser', $_SESSION['password']);
 	
 	if (!mysql_select_db('team102_2014', $link)) {
     		echo 'Could not select database';
@@ -31,13 +31,72 @@
 	}
 	
 	// Determine if we have submitted a teleop period.
-	// Insert the submitted cycle into the database.
-	// Redirect to the Recap if we are done.
-	
+	if(isset($_POST['btnNext']) || isset($_POST['btnDone']))
+	{
+		
+/*		var_dump($_POST);	// Use this to see a dump of the _POST variables.
+		echo '<br>';
+		die;
+*/		
+		// Insert the submitted cycle into the database.
+		// No validations are necessary.
+		for($team = 1; $team <= 3; $team++)
+		{
+			if($team == 1)
+			{
+				$teamNumber = $_SESSION['match']->team1;
+				$assistPts = $_POST['hidTeam1AssistPtsName'];
+			}
+			else if($team == 2)
+			{
+				$teamNumber = $_SESSION['match']->team2;
+				$assistPts = $_POST['hidTeam2AssistPtsName'];
+			}
+			else if($team == 3)
+			{
+				$teamNumber = $_SESSION['match']->team3;
+				$assistPts = $_POST['hidTeam3AssistPtsName'];
+			}
+			if($assistPts == null)
+				$assistPts = 0;
+			$sql = sprintf("insert into match_team_cycles
+								(tournament_id, match_number, team_number, cycle_number, offense_possession, midfield_possession, defense_possession
+								  , truss, catch, goal, assist_points)
+								 values ('%s', %s, %s, %s, '%s', '%s', '%s'
+								 , '%s', '%s', '%s', %s)"
+								, $_SESSION['tournament']->ID
+								, $_SESSION['match']->match_number
+								, $teamNumber
+								, $_SESSION['cycleNumber']
+								, isset($_POST['chkTeam' . $team . 'OffenseName']) ? "Y" : "N"
+								, isset($_POST['chkTeam' . $team . 'WhiteName']) ? "Y" : "N"
+								, isset($_POST['chkTeam' . $team . 'DefenseName']) ? "Y" : "N"
+								, ($_POST['rdoTruss'] == $team) ? "Y" : "N"
+								, ($_POST['rdoCatch'] == $team) ? "Y" : "N"
+								, ($_POST['rdoGoal'] == "H" . $team) ? "H" : (($_POST['rdoGoal'] == "L" . $team) ? "L" : "N")
+								, $assistPts
+								);
+			$insertReturn = mysql_query($sql, $link);
+			if(!$insertReturn)
+				die("Error inserting match_team_cycles team: " . $_SESSION['match']->team1 . " Err: " . mysql_error());
+		}
+		// Get the score after the last submission and save it in session.
+		$_SESSION['score'] = $_POST['scoreFieldName'];
+
+		// Redirect to the Recap if we are done.
+		if(isset($_POST['btnDone']))
+		{
+			header("Location: recap.php"); /* Redirect browser */
+			exit();
+		}
+	}
 	// If not, get the current cycle of the teleop	period.
-	$sql = sprintf("select ifnull(max(cycle_number), 0) + 1 from match_team_cycles
-		where tournament_id = '%s' and match_number = %d", $_SESSION['match']->ID, $_SESSION['match_number']);
+	$sql = sprintf("select ifnull(max(ifnull(cycle_number, 0)), 0) + 1 cycle_number
+					from match_team_cycles
+					where tournament_id = '%s' and match_number = %d and team_number in (%d, %d, %d)"
+		, $_SESSION['match']->tournament_id, $_SESSION['match']->match_number, $_SESSION['match']->team1, $_SESSION['match']->team2, $_SESSION['match']->team3);
 	$cycleNumber = getScalar($sql, "NULL");
+	$_SESSION['cycleNumber'] = $cycleNumber;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,41 +104,124 @@
     <meta charset="utf-8" />
     <title><? echo $_SESSION['tournament']->Title; ?></title>
     <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />
-	<script type='text/javascript' src='http://code.jquery.com/jquery-1.4.4.min.js'></script>
+	<script type='text/javascript' src='jqueryui/js/jquery-1.10.2.js'></script>
     <link rel="stylesheet" href="stylesheet.css" />
     <!--[if IE]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 	<script type='text/javascript'>//<![CDATA[ 
 		$(window).load(function(){
-			$( "#Score" ).text('Score: <?php echo $_SESSION["score"]; ?> ');
+			calcScore();
 			
 			// Event handler to recalculate the score whenever an input control changes.
 			$( "input" ).change(function() { calcScore(); })
 
+			// Event handler to allow radio buttons to be turned off if they are mistakenly turned on.
+			$("input[type='radio']").click(function()
+			{
+			  var previousValue = $(this).attr('previousValue');
+			  var name = $(this).attr('name');
+			
+			  if (previousValue == 'checked')
+			  {
+			    $(this).removeAttr('checked');
+			    $(this).attr('previousValue', false);
+			  }
+			  else
+			  {
+			    $("input[name="+name+"]:radio").attr('previousValue', false);
+			    $(this).attr('previousValue', 'checked');
+			  }
+			  calcScore();
+			});
 		});
 
 		// Function to calculate the score.
 		function calcScore()
 		{
+			enableNextCycle = false;
 			total = <?php echo $_SESSION["score"]; ?>;
+			goalPoints = 0;
+			
+			// The idea: set the zone to 1 if any team assists in that zone.  Set teams to 1 if that teams assists.
+			// The number of assists is then min(sum(zones), sum(teams))
+			var zones = new Array();
+			zones[0] = 0;
+			zones[1] = 0;
+			zones[2] = 0;
+			var teams = new Array();
+			teams[0] = 0;
+			teams[1] = 0;
+			teams[2] = 0;
 			<?php
-			$blue = 0;
-			$white = 0;
-			$red = 0;
 			for ($i = 1; $i <= 3; $i++) {
 			?>
+				if( $( "#chkTeam<?php echo $i ?>Offense" ).prop( "checked" ) )
+				{
+					zones[0] = 1;
+					teams[<?php echo $i ?> - 1] = 1;
+				}
+				if( $( "#chkTeam<?php echo $i ?>White" ).prop( "checked" ) )
+				{
+					zones[1] = 1;
+					teams[<?php echo $i ?> - 1] = 1;
+				}
+				if( $( "#chkTeam<?php echo $i ?>Defense" ).prop( "checked" ) )
+				{
+					zones[2] = 1;
+					teams[<?php echo $i ?> - 1] = 1;
+				}
+
 				if( $( "#rdoLoGoal<?php echo $i ?>" ).prop( "checked" ) )
 				{
-					score += 1;
+					goalPoints = 1;
+					enableNextCycle = true;
 				}
 				else if( $( "#rdoHiGoal<?php echo $i ?>" ).prop( "checked" ) )
 				{
-					score += 10;
+					goalPoints = 10;
+					enableNextCycle = true;
+				}
+				if( $( "#rdoTruss<?php echo $i ?>" ).prop( "checked" ) )
+				{
+					total += 10;
+				}
+				if( $( "#rdoCatch<?php echo $i ?>" ).prop( "checked" ) )
+				{
+					total += 10;
 				}
 			<?php 
 			}?> 
+			assistPts = 0;
+			numTeamsAssisting = teams[0] + teams[1] + teams[2]
+			if(goalPoints  != 0)
+			{
+				total += goalPoints;
+				assists = Math.min(zones[0] + zones[1] + zones[2], numTeamsAssisting);
+				if(assists == 2)
+				{
+					assistPts = 10;
+					total += assistPts;
+				}
+				else if(assists == 3)
+				{
+					assistPts = 30;
+					total += assistPts;
+				}
+			}
+			// Figure out each team's contribution to the assist points.
+			if(teams[0] == 1)
+				$("#hidTeam1AssistPtsID").val(assistPts / numTeamsAssisting);
+			if(teams[1] == 1)
+				$("#hidTeam2AssistPtsID").val(assistPts / numTeamsAssisting);
+			if(teams[2] == 1)
+				$("#hidTeam3AssistPtsID").val(assistPts / numTeamsAssisting);
+				
 			$("#Score").text("Score: " + total);
+			$("#scoreField").val(total);
+			
+			// Figure out if the Next Cycle button should be enabled.
+			$("#btnNextId").prop("disabled", !enableNextCycle);
 		};
 	//]]>
 	</script>
@@ -88,107 +230,59 @@
     <div id="page">
         <div class="header">
             <div id="competition"><? echo $_SESSION['tournament']->Title . ' ' . $_SESSION['initials']; ?></div>
-            <div id="match">Match <? echo $_SESSION['match']->match_number . " - " . $_SESSION['match']->start_time . " - " . $_SESSION['alliance']; ?></div>
+            <div id="match">Match <? echo $_SESSION['match']->match_number . " - " . $_SESSION['match']->start_time . " - " . $_SESSION['match']->alliance; ?></div>
             <div id="cycle">Teleop Cycle <? echo $cycleNumber; ?></div>
         </div>
 
-        <form id="cycleForm" action="teleop.html">
-            <div id="Team1" class="team">
-                <div id="Team1Number" class="teamNumber">102</div>
+        <form id="cycleForm" action="teleop.php" method="POST">
+			<?php
+			for ($i = 1; $i <= 3; $i++) {
+				if($i == 1)
+					$teamNumber = $_SESSION['match']->team1;
+				else if($i == 2)
+					$teamNumber = $_SESSION['match']->team2;
+				else
+					$teamNumber = $_SESSION['match']->team3;
+			?>
+            <div id="Team<? echo $i; ?>" class="team">
+                <div id="Team<? echo $i; ?>Number" class="teamNumber"><? echo $teamNumber; ?></div>
                 <div class="controls">
-                    <div id="Team1BlueZone" class="blue">
-                        <input type="checkbox" name="chkTeam1Blue" value="Team-1-Blue" />
+                    <div id="Team<? echo $i; ?>OffenseZone" class="<?php echo strtolower($_SESSION['match']->alliance) ?>">
+                        <input type="checkbox" name="chkTeam<? echo $i; ?>OffenseName" id="chkTeam<? echo $i; ?>Offense" value="Team-<? echo $i; ?>-Offense" />
                     </div>
-                    <!-- was going to use attack zone, mid zone, defend zone: but decided this way is easier to see. -->
-                    <div id="Team1WhiteZone" class="white">
-                        <input type="checkbox" name="chkTeam1White" value="Team-1-White" />
+                    <div id="Team<? echo $i; ?>WhiteZone" class="white">
+                        <input type="checkbox" name="chkTeam<? echo $i; ?>WhiteName" id="chkTeam<? echo $i; ?>White" value="Team-<? echo $i; ?>-White" />
                     </div>
-                    <div id="Team1RedZone" class="red">
-                        <input type="checkbox" name="chkTeam1Red" value="Team-1-Red" />
+                    <div id="Team<? echo $i; ?>DefenseZone" class="<?php echo (strtolower($_SESSION['match']->alliance) == 'red' ? 'blue' : 'red') ?>">
+                        <input type="checkbox" name="chkTeam<? echo $i; ?>DefenseName" id="chkTeam<? echo $i; ?>Defense" value="Team-<? echo $i; ?>-Defense" />
                     </div>
-                    <div id="Team1Truss">
-                        <input type="radio" name="rdoTruss" id="rdoTruss1" value="Team-1-Truss" />
-                        <label for="rdoTruss1">Truss</label>
+                    <div id="Team<? echo $i; ?>Truss">
+                        <input type="radio" name="rdoTruss" id="rdoTruss<? echo $i; ?>" value="<? echo $i; ?>" />
+                        <label for="rdoTruss<? echo $i; ?>">Truss</label>
                     </div>
-                    <div id="Team1Catch">
-                        <input type="radio" name="rdoCatch" id="rdoCatch1" value="Team-1-Catch" />
-                        <label for="rdoCatch1">Catch</label>
+                    <div id="Team<? echo $i; ?>Catch">
+                        <input type="radio" name="rdoCatch" id="rdoCatch<? echo $i; ?>" value="<? echo $i; ?>" />
+                        <label for="rdoCatch<? echo $i; ?>">Catch</label>
                     </div>
-                    <div id="Team1LoGoal">
-                        <input type="radio" name="rdoGoal" id="rdoLoGoal1" value="Team-1-LoGoal" />
-                        <label for="rdoLoGoal1">Low Goal</label>
+                    <div id="Team<? echo $i; ?>LoGoal">
+                        <input type="radio" name="rdoGoal" id="rdoLoGoal<? echo $i; ?>" value="L<? echo $i; ?>" />
+                        <label for="rdoLoGoal<? echo $i; ?>">Low Goal</label>
                     </div>
-                    <div id="Team1HiGoal">
-                        <input type="radio" name="rdoGoal" id="rdoHiGoal1" value="Team-1-HiGoal" />
-                        <label for="rdoHiGoal1">High Goal</label>
+                    <div id="Team<? echo $i; ?>HiGoal">
+                        <input type="radio" name="rdoGoal" id="rdoHiGoal<? echo $i; ?>" value="H<? echo $i; ?>" />
+                        <label for="rdoHiGoal<? echo $i; ?>">High Goal</label>
+                        <input type="hidden" name="hidTeam<? echo $i; ?>AssistPtsName" id="hidTeam<? echo $i; ?>AssistPtsID" />
                     </div>
                 </div>
             </div>
-            <div id="Team2" class="team">
-                <div id="Team2Number" class="teamNumber">303</div>
-                <div class="controls">
-                    <div id="Team2BlueZone" class="blue">
-                        <input type="checkbox" name="chkTeam2Blue" value="Team-2-Blue" />
-                    </div>
-                    <div id="Team2WhiteZone" class="white">
-                        <input type="checkbox" name="chkTeam2White" value="Team-2-White" />
-                    </div>
-                    <div id="Team2RedZone" class="red">
-                        <input type="checkbox" name="chkTeam2Red" value="Team-2-Red" />
-                    </div>
-                    <div id="Team2Truss">
-                        <input type="radio" id="rdoTruss2" name="rdoTruss" value="Team-2-Truss" />
-                        <label for="rdoTruss2">Truss</label>
-                    </div>
-                    <div id="Team2Catch">
-                        <input type="radio" id="rdoCatch2" name="rdoCatch" value="Team-2-Catch" />
-                        <label for="rdoCatch2">Catch</label>
-                    </div>
-                    <div id="Team2LoGoal">
-                        <input type="radio" name="rdoGoal" id="rdoLoGoal2" value="Team-2-LoGoal" />
-                        <label for="rdoLoGoal2">Low Goal</label>
-                    </div>
-                    <div id="Team2HiGoal">
-                        <input type="radio" name="rdoGoal" id="rdoHiGoal2" value="Team-2-HiGoal" />
-                        <label for="rdoHiGoal2">High Goal</label>
-                    </div>
-                </div>
-            </div>
-            <div id="Team3" class="team">
-                <div id="Team3Number" class="teamNumber">2547</div>
-                <div class="controls">
-                    <div id="Team3BlueZone" class="blue">
-                        <input type="checkbox" name="chkTeam3Blue" value="Team-3-Blue" />
-                    </div>
-                    <div id="Team3WhiteZone" class="white">
-                        <input type="checkbox" name="chkTeam3White" value="Team-3-White" />
-                    </div>
-                    <div id="Team3RedZone" class="red">
-                        <input type="checkbox" name="chkTeam3Red" value="Team-3-Red" />
-                    </div>
-                    <div id="Team3Truss">
-                        <input type="radio" name="rdoTruss" id="rdoTruss3" value="Team-3-Truss" />
-                        <label for="rdoTruss3">Truss</label>
-                    </div>
-                    <div id="Team3Catch">
-                        <input type="radio" name="rdoCatch" id="rdoCatch3" value="Team-3-Catch" />
-                        <label for="rdoCatch3">Catch</label>
-                    </div>
-                    <div id="Team3LoGoal">
-                        <input type="radio" name="rdoGoal" id="rdoLoGoal3" value="Team-3-LoGoal" />
-                        <label for="rdoLoGoal3">Low Goal</label>
-                    </div>
-                    <div id="Team3HiGoal">
-                        <input type="radio" name="rdoGoal" id="rdoHiGoal3" value="Team-3-HiGoal" />
-                        <label for="rdoHiGoal3">High Goal</label>
-                    </div>
-                </div>
-            </div>
+		<?php
+			}
+		?>
             <div style="clear:both;"></div>
             <div class="footer">
-                <div id="Score">Score: 37</div>
+                <div id="Score" class="<?php echo strtolower($_SESSION['match']->alliance) ?>"></div><input type="hidden" name="scoreFieldName" id="scoreField" />
                 <div id="nav">
-                    <input type="submit" name="btnNext" value="Next Cycle" />
+                    <input type="submit" name="btnNext" value="Next Cycle" id="btnNextId" disabled/>
                     <input type="submit" name="btnDone" value="Done" />
                 </div>
             </div>

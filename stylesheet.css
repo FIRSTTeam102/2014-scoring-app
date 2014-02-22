@@ -122,6 +122,11 @@ input:checked + label {
 input:unchecked + label {
     color: #777;
 }
+input[type=submit]:disabled{
+    background: -webkit-gradient(linear, left top, left bottom, from(#a77), to(#677));
+    border: 2px solid #c77;
+    color:darkgray;
+}
 input[type=submit], .btnBack {
     width: auto;
     padding: 0.25em 1em;
@@ -175,4 +180,10 @@ input[type=radio]:checked {
 .qSection
 {
 	border: 1px solid white;
+}
+#standings
+{
+	text-align:center; 
+    vertical-align:middle;
+	font-size: 0.75em;
 }
