@@ -18,7 +18,7 @@ if (mysqli_connect_errno()) {
 }
 else if($password && $initials && $alliance != ""){
 
-	$_SESSION['initials'] = $initials;
+	$_SESSION['initials'] = strtoupper($initials);
 	$_SESSION['password'] = $password;
 	$_SESSION['alliance'] = $alliance;
 	

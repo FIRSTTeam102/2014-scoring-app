@@ -18,39 +18,9 @@
     		echo 'Could not select database';
     		exit;
 	}
-	
 	// Get the match number from the choosematch page.
 	$match_number  = $_POST['rdoMatch'];
-	if($match_number != null)
-	{
-		$_SESSION['match_number'] = $match_number;
-		// Update the match with the user's initials
-				for($team = 1; $team <= 3; $team++)
-		{
-			if($team == 1)
-			{
-				$teamNumber = $_SESSION['match']->team1;
-			}
-			else if($team == 2)
-			{
-				$teamNumber = $_SESSION['match']->team2;
-			}
-			else if($team == 3)
-			{
-				$teamNumber = $_SESSION['match']->team3;
-			}
-			$sql = sprintf("update match_teams set initials = '%s' where tournament_id = '%s' and match_number = %s
-								and team_number = %s;"
-								, $_SESSION['initials']
-								, $_SESSION['tournament']->ID
-								, $_SESSION['match']->match_number
-								, $teamNumber);
-			$updateReturn = mysql_query($sql, $link);
-			if(!$updateReturn)
-				die("Error updating match_teams team: " . $_SESSION['match']->team1 . " Err: " . mysql_error());
-		}
-	}
-	else
+	if($match_number == null)
 		$match_number = $_SESSION['match_number'];	
 		
 	// If we don't have a match number we cannot continue.
@@ -88,6 +58,35 @@
 	$match =  mysql_fetch_object($matches);
 	
 	$_SESSION['match'] = $match;
+
+	{
+		$_SESSION['match_number'] = $match_number;
+		// Update the match with the user's initials
+				for($team = 1; $team <= 3; $team++)
+		{
+			if($team == 1)
+			{
+				$teamNumber = $_SESSION['match']->team1;
+			}
+			else if($team == 2)
+			{
+				$teamNumber = $_SESSION['match']->team2;
+			}
+			else if($team == 3)
+			{
+				$teamNumber = $_SESSION['match']->team3;
+			}
+			$sql = sprintf("update match_teams set initials = '%s' where tournament_id = '%s' and match_number = %s
+								and team_number = %s;"
+								, $_SESSION['initials']
+								, $_SESSION['tournament']->ID
+								, $_SESSION['match']->match_number
+								, $teamNumber);
+			$updateReturn = mysql_query($sql, $link);
+			if(!$updateReturn)
+				die("Error updating match_teams team: " . $_SESSION['match']->team1 . " Err: " . mysql_error());
+		}
+	}
 
 	// if the next button has been clicked, save the results and redirect to either the AutoExtra or the Teleop
 	if(isset($_POST['btnNext']))
@@ -177,7 +176,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title><? echo $_SESSION['tournament']->Title; ?></title>
+    <title><? echo $_SESSION['tournament']->Title; ?> Autonomous</title>
     <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />
 	<script type='text/javascript' src='jqueryui/js/jquery-1.10.2.js'></script>
     <link rel="stylesheet" href="stylesheet.css" />
@@ -186,7 +185,7 @@
 	<![endif]-->
 	<script type='text/javascript'>//<![CDATA[ 
 		$(window).load(function(){
-			$( "#Score" ).text('Score: 0');
+			calcScore();
 			
 			// Event handler to recalculate the score whenever an input control changes.
 			$( "input" ).change(function() { calcScore(); })

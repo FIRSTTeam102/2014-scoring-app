@@ -52,7 +52,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title><? echo $_SESSION['tournament']->Title; ?></title>
+    <title><? echo $_SESSION['tournament']->Title; ?> Recap</title>
     <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />
 	<script type='text/javascript' src='jqueryui/js/jquery-1.10.2.js'></script>
     <link rel="stylesheet" href="stylesheet.css" />
@@ -79,7 +79,8 @@
             <div>Recap</div>
         </div>
         <form id="recapForm" action="recap.php" method="POST">
-		<table>
+		<table class="teamRecap">
+		<tr><th>Team</th><th>Has Ball</th><th>Auto Goal</th><th>Hot</th><th>Mob</th><th>Ex1</th><th>Ex2</th><th>Ex3</th></tr>
 <?php
 	$sql = sprintf("select team_number, has_ball, auto_goal, auto_goal_hot, auto_mobility, extra_goal_1, extra_goal_2, extra_goal_3
 				from match_teams
@@ -97,7 +98,6 @@
 
 	while($row = mysql_fetch_assoc($matchTeamQ)) {
 		?>
-		<tr><th>Team</th><th>Has Ball</th><th>Auto Goal</th><th>Hot</th><th>Mob</th><th>Ex1</th><th>Ex2</th><th>Ex3</th></tr>
 		<tr>
 		<td><?php echo $row['team_number'] ?></td>
 		<td><?php echo $row['has_ball'] ?></td>
@@ -126,7 +126,7 @@
 		}
 		?>
 		<tr><td>&nbsp;</td><td colspan="7">
-			<table>
+			<table class="cycleRecap">
 			<tr><th>Cycle</th><th>Off</th><th>Mid</th><th>Def</th><th>Truss</th><th>Catch</th><th>Goal</th></tr>
 		<?php
 		while($row2 = mysql_fetch_assoc($matchTeamCycleQ)) {

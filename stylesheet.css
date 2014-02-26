@@ -187,3 +187,15 @@ input[type=radio]:checked {
     vertical-align:middle;
 	font-size: 0.75em;
 }
+.teamRecap, .cycleRecap
+{
+	border: 1px solid white;
+	width: 100%;
+	text-align:center; 
+    vertical-align:middle;
+	font-size: 0.75em;
+}
+.teamRecap th, .cycleRecap th
+{
+	border-bottom: 2px solid white;
+}

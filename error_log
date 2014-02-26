@@ -170,3 +170,31 @@
 [21-Feb-2014 20:51:15 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home/team102/public_html/2014/standings.php on line 78
 [21-Feb-2014 20:55:13 America/Chicago] PHP Fatal error:  Cannot use [] for reading in /home/team102/public_html/2014/standings.php on line 35
 [21-Feb-2014 20:56:15 America/Chicago] PHP Warning:  array_keys() expects parameter 1 to be array, boolean given in /home/team102/public_html/2014/standings.php on line 36
+[22-Feb-2014 09:38:05 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: NO) in /home/team102/public_html/2014/login.php on line 13
+[22-Feb-2014 10:38:28 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/team102/public_html/2014/autoextra.php:30) in /home/team102/public_html/2014/autoextra.php on line 59
+[22-Feb-2014 10:53:28 America/Chicago] PHP Parse error:  syntax error, unexpected '[' in /home/team102/public_html/2014/autoextra.php on line 36
+[22-Feb-2014 10:53:34 America/Chicago] PHP Parse error:  syntax error, unexpected '[' in /home/team102/public_html/2014/autoextra.php on line 36
+[22-Feb-2014 10:54:41 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home/team102/public_html/2014/autoextra.php on line 65
+[22-Feb-2014 11:16:48 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home/team102/public_html/2014/autoextra.php on line 90
+[22-Feb-2014 11:22:23 America/Chicago] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /home/team102/public_html/2014/autoextra.php on line 13
+[22-Feb-2014 12:53:19 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[22-Feb-2014 12:53:52 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[22-Feb-2014 12:53:54 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[22-Feb-2014 12:53:55 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[22-Feb-2014 12:53:56 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: NO) in /home/team102/public_html/2014/login.php on line 13
+[22-Feb-2014 12:53:56 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: NO) in /home/team102/public_html/2014/login.php on line 13
+[22-Feb-2014 12:54:06 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: YES) in /home/team102/public_html/2014/login.php on line 13
+[22-Feb-2014 13:22:20 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'team102_webuser'@'localhost' (using password: NO) in /home/team102/public_html/2014/login.php on line 13
+[24-Feb-2014 19:09:52 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/survey.php on line 95
+[25-Feb-2014 18:59:53 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/survey.php on line 95
+[25-Feb-2014 19:00:53 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/survey.php on line 95
+[25-Feb-2014 19:20:44 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/survey.php on line 95
+[25-Feb-2014 22:05:17 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/survey.php on line 95
+[26-Feb-2014 07:59:48 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/survey.php on line 95
+[26-Feb-2014 11:25:31 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/survey.php on line 95
+[26-Feb-2014 11:27:10 America/Chicago] PHP Parse error:  syntax error, unexpected '>' in /home/team102/public_html/2014/survey.php on line 142
+[26-Feb-2014 12:00:33 America/Chicago] PHP Parse error:  syntax error, unexpected ';' in /home/team102/public_html/2014/survey.php on line 40
+[26-Feb-2014 12:01:05 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/survey.php on line 113
+[26-Feb-2014 12:01:26 America/Chicago] PHP Fatal error:  Call to undefined function sprinf() in /home/team102/public_html/2014/survey.php on line 33
+[26-Feb-2014 12:07:13 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/survey.php on line 112
+[26-Feb-2014 14:22:19 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/survey.php on line 112

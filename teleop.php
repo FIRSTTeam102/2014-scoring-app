@@ -127,7 +127,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title><? echo $_SESSION['tournament']->Title; ?></title>
+    <title><? echo $_SESSION['tournament']->Title; ?> TeleOp</title>
     <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />
 	<script type='text/javascript' src='jqueryui/js/jquery-1.10.2.js'></script>
     <link rel="stylesheet" href="stylesheet.css" />

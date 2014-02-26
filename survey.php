@@ -1,154 +1,185 @@
+<?php
+	set_include_path(get_include_path() . PATH_SEPARATOR . "../" . PATH_SEPARATOR . "../../" . PATH_SEPARATOR . "../../../");
+
+	session_start();
+	
+	// if we cannot get the password from session - redirect to the starting page.
+	if(!$_SESSION['password'])
+	{
+		header("Location: scoringapp.php"); 	/* Redirect browser */
+		exit();
+	}
+
+	// Connect to the database.
+	$link = mysql_connect('Team102.org:3306', 'team102_webuser', 'Gearheads');
+	
+	if (!mysql_select_db('team102_2014', $link)) {
+    		echo 'Could not select database';
+    		exit;
+	}
+	$teamNumber = $_GET['team'];
+
+	if ($_GET['btnEdit'] == 'Save')
+	{
+		// Save the answers.
+		foreach ($_GET as $key => $value) 
+		{ 
+			// Look at each answer input.
+			if(strpos($key,'txtQ') == 0)
+			{
+				$qID = intval(substr($key, 4));
+			}
+			// Try to update the answer row, if that fails, insert it.
+			$sql = sprintf("INSERT INTO answers (question_id, team_number, answer)
+				VALUES (%s, %s, '%s')
+				ON DUPLICATE KEY UPDATE
+				answer = '%s'", $qID, $teamNumber, mysql_real_escape_string($value), mysql_real_escape_string($value));
+			$updateReturn = mysql_query($sql, $link);
+			if(!$updateReturn)
+				die(sprintf("Error updating answers: qID: %d, team: %d, Err: %s", $qID, $teamNumber, mysql_error()));
+		}		
+	}
+	
+	// Get a list of teams to put in the list box.
+	$sql = "select t.number, t.name
+						from teams t, tournament_teams tt, tournaments tr 
+						where tr.active = 'Y'
+						and tt.tournament_id = tr.ID
+						and t.number = tt.team_number
+						order by t.number;";
+						
+	$teams = mysql_query($sql, $link);
+	if (!$teams) {
+		echo "DB Error, could not query teams\n";
+		echo 'MySQL Error: ' . mysql_error();
+		exit;
+	}
+	if($teamNumber != null)
+	{
+		$sql = sprintf("SELECT q.id, q.question, q.seq_no, q.active, q.q_type, q.domain, a.answer, a.team_number 
+							FROM questions q LEFT JOIN answers a ON q.id = a.question_id
+							where a.team_number = %d
+								and q.active = 'Y'
+							UNION
+							SELECT q.id, q.question, q.seq_no, q.active, q.q_type, q.domain, null, null 
+							FROM questions q
+							where q.id not in (SELECT q.id 
+												FROM questions q LEFT JOIN answers a ON q.id = a.question_id
+												where a.team_number = %d)
+							and q.active = 'Y'
+							order by 3;", $teamNumber, $teamNumber);
+		$questions = mysql_query($sql, $link);
+		if (!$questions) {
+			echo "DB Error, could not query questions and answers\n";
+			echo 'MySQL Error: ' . mysql_error();
+			exit;
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <title>2014 Questionnaire</title>
     <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />
+	<script type='text/javascript' src='jqueryui/js/jquery-1.10.2.js'></script>
     <link rel="stylesheet" href="stylesheet.css" />
     <!--[if IE]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+	<script type='text/javascript'>//<![CDATA[ 
+		$(window).load(function(){
+			// Event handler to recalculate the score whenever an input control changes.
+			$( "#selectTeamID" ).change(function() 
+			{ 
+				this.form.submit();
+			})
+
+		});
+	//]]>
+	</script>
 </head>
 <body class="no-js">
     <div id="page">
-        <div class="header">2014 Questionnaire taken by MJP</div>
-        <form id="QuestionsForm" action="survey.php" method="POST">
+        <div class="header">2014 Questionnaire taken by <?php echo $_SESSION['initials'] ?></div>
+        <form id="QuestionsForm" action="survey.php" method="GET">
 			<label for="selectTeamID">Team: </label>			
-			<select name="selectTeam" id="selectTeamID">
-				<option value="" disabled="disabled" selected="selected">Please select a Team</option>
-				<option value="102">102 - Somerville High School</option>
-				<option value="303">303 - Bridgewater High School</option>
-			</select>
-			<div class="qSection">Drive System
-				<div id="divDriveType">
-					Drive Type: 
-					<input type="radio" name="rdoDriveType" id="rdoTank" value="Tank" />
-					<label for="rdoTank">Tank</label>
-					<input type="radio" name="rdoDriveType" id="rdoMecanum" value="Mecanum" />
-					<label for="rdoMecanum">Mecanum</label>
-					<input type="radio" name="rdoDriveType" id="rdoOther" value="Other" />
-					<label for="rdoMecanum">Other</label>
-					<input type="text" name="txtOtherDriveTypeName" id="txtOtherDriveType" style="width: 10em;"/>
-				</div>
-				</div>
-				<div>
-				<label for="txtNumOfWheels">Number Of Wheels:</label>
-				<input type="text" name="txtNumOfWheelsName" id="txtNumOfWheels" style="width: 5em;"/>
-				</div>
-				<div id="divTransmission">
-					Power Transmission: 
-					<input type="radio" name="rdoTransmission" id="rdoDirectDrive" value="Direct Drive" />
-					<label for="rdoDirectDrive">Direct Drive</label>
-					<input type="radio" name="rdoTransmission" id="rdoChain" value="Chain" />
-					<label for="rdoChain">Chain</label>
-					<input type="radio" name="rdoTransmission" id="rdoBelt" value="Belt" />
-					<label for="rdoBelt">Belt</label>
-				</div>
-				<div>
-				<label for="txtNumOfPWheels">Number Of Powered Wheels:</label>
-				<input type="text" name="txtNumOfPWheelsName" id="txtNumOfPWheels" style="width: 5em;"/>
-				</div>
-				<div>
-				<label for="txtMaxSpeed">Maximum Speed:</label>
-				<input type="text" name="txtMaxSpeedName" id="txtMaxSpeed" style="width: 5em;"/> ft/sec
-				</div>
-				<div>
-				<label for="txtMaxTorque">Maximum Torque:</label>
-				<input type="text" name="txtMaxTorqueName" id="txtMaxTorque" style="width: 5em;"/> ft-lbs
-				</div>
-			</div>
-			<div class="qSection">Autonomous
-				<div id="divPrefStart">
-					<label for="txtPreferredStartingPos">Preferred Starting Position:</label>
-					<input type="text" name="txtPreferredStartingPosName" id="txtPreferredStartingPos" style="width: 15em;"/>
-				</div>
-				<div id="divHotGoalDetect">
-					<input type="checkbox" name="chkHotGoalDetectName" id="chkHotGoalDetect" value="HotGoalDetect" />
-					<label for="chkHotGoalDetect">Hot Goal Detect</label>
-				</div>
-				<div id="divCanScoreHigh">
-					<input type="checkbox" name="chkCanScoreHighName" id="chkCanScoreHigh" value="CanScoreHigh" />
-					<label for="chkCanScoreHigh">Can  Score High</label>
-				</div>
-				<div id="divMobilityBonus">
-					<input type="checkbox" name="chkMobilityBonusName" id="chkMobilityBonus" value="MobilityBonus" />
-					<label for="chkMobilityBonus">Mobility Bonus</label>
-				</div>
-				<div id="divGoalie">
-					<input type="checkbox" name="chkGoalieName" id="chkGoalie" value="Goalie" />
-					<label for="chkGoalie">Goalie</label>
-				</div>
-				<div id="divDescAutoFunction">
-					<label for="txtDescAutoFunctionName">Briefly Describe Autonomous:</label>
-					  <textarea cols="30" rows="2"
-							name="txtDescAutoFunctionName"></textarea>
-				</div>
-			</div>
-			<div class="qSection">Tele-Op
-				<div id="divHighGoalTeleop">
-					<input type="checkbox" name="chkHighGoalTeleopName" id="chkHighGoalTeleop" value="HighGoalTeleop" />
-					<label for="chkHighGoalTeleop">High Goal Scoring</label>
-					<input type="text" name="txtPctAccHighGoalName" id="txtPctAccHighGoal" style="width: 3em;"/>
-					<label for="txtPctAccHighGoalName"> %</label>
-				</div>
-				<div id="divLowGoalTeleop">
-					<input type="checkbox" name="chkLowGoalTeleopName" id="chkLowGoalTeleop" value="LowGoalTeleop" />
-					<label for="chkLowGoalTeleop">Low Goal Scoring</label>
-					<input type="text" name="txtPctAccLowGoalName" id="txtPctAccLowGoal" style="width: 3em;"/>
-					<label for="txtPctAccLowGoalName"> %</label>
-				</div>
-				<div id="divTrussTeleop">
-					<input type="checkbox" name="chkTrussTeleopName" id="chkTrussTeleop" value="TrussTeleop" />
-					<label for="chkTrussTeleop">Truss</label>
-					<input type="text" name="txtPctAccTrussName" id="txtPctAccTruss" style="width: 3em;"/>
-					<label for="txtPctAccTrussName"> %</label>
-				</div>
-				<div id="divCatchTeleop">
-					<input type="checkbox" name="chkCatchTeleopName" id="chkCatchTeleop" value="CatchTeleop" />
-					<label for="chkCatchTeleop">Catch</label>
-					<input type="text" name="txtPctAccCatchName" id="txtPctAccCatch" style="width: 3em;"/>
-					<label for="txtPctAccCatchName"> %</label>
-				</div>
-				<div id="divPickUpTeleop">
-					<input type="checkbox" name="chkPickUpTeleopName" id="chkPickUpTeleop" value="PickUpTeleop" />
-					<label for="chkPickUpTeleop">PickUp from Floor</label>
-					<input type="text" name="txtPctAccPickUpName" id="txtPctAccPickUp" style="width: 3em;"/>
-					<label for="txtPctAccPickUpName"> %</label>
-				</div>
-				<div id="divPossession">
-					Method of Possession: 
-					<input type="radio" name="rdoPossession" id="rdoHerd" value="Herd" />
-					<label for="rdoHerd">Herd</label>
-					<input type="radio" name="rdoPossession" id="rdoCatch" value="Catch" />
-					<label for="rdoCatch">Catch</label>
-					<input type="radio" name="rdoPossession" id="rdoCarry" value="Carry" />
-					<label for="rdoCarry">Carry</label>
-					<input type="radio" name="rdoPossession" id="rdoLaunch" value="Launch" />
-					<label for="rdoLaunch">Launch</label>
-				</div>
-				<div id="divDescPossession">
-					<label for="txtDescPossessionName">Briefly Describe Possession Mechanism:</label>
-					  <textarea cols="30" rows="2"
-							name="txtDescPossessionName"></textarea>
-				</div>
-				<div id="divDescLoad">
-					<label for="txtDescLoadName">How does the robot load a ball:</label>
-					  <textarea cols="30" rows="2"
-							name="txtDescLoadName"></textarea>
-				</div>
-				<div id="divStrategy">
-					<label for="txtStrategyName">Desired Strategy:</label>
-					  <textarea cols="30" rows="2"
-							name="txtStrategyName"></textarea>
-				</div>
-			</div>
-			<div class="qSection">Other
-				<div id="divDescRobot">
-					<label for="txtDescRobotName">Describe the Robot:</label>
-					  <textarea cols="30" rows="2"
-							name="txtDescRobotName"></textarea>
-				</div>
-			</div>
+			<select name="team" id="selectTeamID" style="width: 20em;">
+				<option value="" disabled="disabled" <?php echo ($teamNumber == null) ? 'selected="selected"' : ''; ?> >Please select a Team</option>
+				<?php
+				while($row = mysql_fetch_assoc($teams)) {
+				?>
+				<option value="<?php echo $row['number'] ?>" <?php echo ($teamNumber == $row['number']) ? 'selected="selected"' : ''; ?> ><?php echo $row['number'] ?> - <?php echo $row['name'] ?></option>
+				<?php
+				}
+				?>
+			</select>&nbsp;<input type="submit" name="btnEdit" value="<?php echo ($_GET['btnEdit'] == 'Edit') ? 'Save' : 'Edit'; ?>" <?php echo ($teamNumber == null) ? 'disabled' : '' ?>/>
+				<?php
+				if($teamNumber != null)
+				{
+					while($row = mysql_fetch_assoc($questions)) {
+						if($row['q_type'] == 'SEP')
+						{
+							?><div class="qSection"><?php echo $row['question'] ?></div>
+					<?php
+						}
+						else if($row['q_type'] == 'MULT')
+						{
+							$sql = sprintf("select abbreviation, meaning
+									from ref_codes
+									where domain = '%s'", $row['domain']);
+							$domainValues = mysql_query($sql, $link);
+
+							if (!$domainValues) {
+								echo "DB Error, could not query ref_codes domainValues\n";
+								echo 'MySQL Error: ' . mysql_error();
+								exit;
+							}
+
+							if($row['domain'] == 'YES_NO')
+							{
+								$width = '4em';
+							}
+							else
+								$width = '7em';
+							
+							?><div class="question"><label for="txtQ<?php echo $row['id'] ?>"><?php echo $row['question'] . ':' ?></label>
+									<select name="txtQ<?php echo $row['id'] ?>" id="txtQ<?php echo $row['id'] ?>Id"  
+										style="width: <?php echo $width ?>;" <?php echo ($_GET['btnEdit'] == 'Edit') ? '' : 'disabled' ?>>
+									<option value=""></option>
+									<?php
+										while($valRow = mysql_fetch_assoc($domainValues)) {
+										?>
+										<option value="<?php echo $valRow['abbreviation']; ?>"
+										<?php echo ($valRow['abbreviation'] ==  $row['answer']) ? ' selected ' : ''; ?>
+										><?php echo $valRow['meaning']; ?>
+										</option>
+										<?php
+										}
+									?>
+									</select>
+									</div>
+					<?php
+						}
+						else if($row['q_type'] == 'SHORT')
+						{
+							?><div class="question"><label for="txtQ<?php echo $row['id'] ?>"><?php echo $row['question'] . ':' ?></label>
+									<input type="text" name="txtQ<?php echo $row['id'] ?>" id="txtQ<?php echo $row['id'] ?>Id" style="width: 5em;" 
+										value="<?php echo $row['answer']; ?>" <?php echo ($_GET['btnEdit'] == 'Edit') ? '' : 'disabled' ?>/></div>
+					<?php
+						}
+						else if($row['q_type'] == 'LONG')
+						{
+							?><div class="question"><label for="txtQ<?php echo $row['id'] ?>"><?php echo $row['question'] . ':' ?></label>
+											  <textarea cols="30" rows="2"
+															name="txtQ<?php echo $row['id'] ?>" <?php echo ($_GET['btnEdit'] == 'Edit') ? '' : 'disabled' ?>><?php echo $row['answer']; ?></textarea></div>
+					<?php
+						}
+					?>
+					<?php
+					}
+				}
+				?>
             <div style="clear:both;"></div>
 		</form>
 	</div>
