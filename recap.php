@@ -6,7 +6,7 @@
 	// if we cannot get the password from session - redirect to the starting page.
 	if(!$_SESSION['password'])
 	{
-		header("Location: scoringapp.php"); 	/* Redirect browser */
+		header("Location: index.php"); 	/* Redirect browser */
 		exit();
 	}
 
@@ -14,14 +14,14 @@
 	$link = mysql_connect('Team102.org:3306', 'team102_webuser', $_SESSION['password']);
 	
 	if (!mysql_select_db('team102_2014', $link)) {
-    		echo 'Could not select database';
+    		echo sprintf('Could not select database, Err: %s', mysql_error());
     		exit;
 	}
 
 	// If they have clicked the Next Match button, mark the match-teams complete and go to the choose match page.
 	if(isset($_POST['btnNext']) )
 	{
-		for($team = 1; $team <= 3; $team++)
+/*		for($team = 1; $team <= 3; $team++)
 		{
 			if($team == 1)
 			{
@@ -45,6 +45,7 @@
 			if(!$updateReturn)
 				die("Error updating match_teams team: " . $_SESSION['match']->team1 . " Err: " . mysql_error());
 		}
+		*/
 		header ("location: choosematch.php");
 	}
 ?>

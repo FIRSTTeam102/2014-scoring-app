@@ -7,13 +7,13 @@
 	$link = mysql_connect('team102.org:3306', 'team102_webuser', $_SESSION['password']);
 	
 	if (!mysql_select_db('team102_2014', $link)) {
-    		echo 'Could not select database';
+    		echo sprintf('Could not select database, Err: %s', mysql_error());
     		exit;
 	}
 	$match_number  = $_SESSION['match']->match_number;
 	if(!$match_number)
 	{
-		header("Location: scoringapp.php"); 	/* Redirect browser */
+		header("Location: index.php"); 	/* Redirect browser */
 		exit();
 	}
 		
@@ -157,7 +157,6 @@
             <div class="footer">
                 <div id="Score" class="<?php echo strtolower($_SESSION['match']->alliance) ?>"></div><input type="hidden" name="scoreFieldName" id="scoreField" />
                 <div id="nav">
-                    <button type="button" class="btnBack" onclick="history.back();">Back</button>
                     <input type="submit" name="btnNext" value="Next" />
                 </div>
             </div>

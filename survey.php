@@ -6,7 +6,7 @@
 	// if we cannot get the password from session - redirect to the starting page.
 	if(!$_SESSION['password'])
 	{
-		header("Location: scoringapp.php"); 	/* Redirect browser */
+		header("Location: index.php"); 	/* Redirect browser */
 		exit();
 	}
 
@@ -14,15 +14,19 @@
 	$link = mysql_connect('Team102.org:3306', 'team102_webuser', 'Gearheads');
 	
 	if (!mysql_select_db('team102_2014', $link)) {
-    		echo 'Could not select database';
+    		echo sprintf('Could not select database, Err: %s', mysql_error());
     		exit;
 	}
-	$teamNumber = $_GET['team'];
+	
+	if($_GET['team'] != null)
+		$teamNumber = $_GET['team'];
+	else
+		$teamNumber = $_POST['team'];
 
-	if ($_GET['btnEdit'] == 'Save')
+	if ($_POST['btnEdit'] == 'Save')
 	{
 		// Save the answers.
-		foreach ($_GET as $key => $value) 
+		foreach ($_POST as $key => $value) 
 		{ 
 			// Look at each answer input.
 			if(strpos($key,'txtQ') == 0)
@@ -101,8 +105,8 @@
 </head>
 <body class="no-js">
     <div id="page">
-        <div class="header">2014 Questionnaire taken by <?php echo $_SESSION['initials'] ?></div>
-        <form id="QuestionsForm" action="survey.php" method="GET">
+        <div class="header">2014 FRC Questionnaire</div>
+        <form id="QuestionsForm" action="survey.php" method="POST">
 			<label for="selectTeamID">Team: </label>			
 			<select name="team" id="selectTeamID" style="width: 20em;">
 				<option value="" disabled="disabled" <?php echo ($teamNumber == null) ? 'selected="selected"' : ''; ?> >Please select a Team</option>
@@ -113,7 +117,7 @@
 				<?php
 				}
 				?>
-			</select>&nbsp;<input type="submit" name="btnEdit" value="<?php echo ($_GET['btnEdit'] == 'Edit') ? 'Save' : 'Edit'; ?>" <?php echo ($teamNumber == null) ? 'disabled' : '' ?>/>
+			</select>&nbsp;<input type="submit" name="btnEdit" value="<?php echo ($_POST['btnEdit'] == 'Edit') ? 'Save' : 'Edit'; ?>" <?php echo ($teamNumber == null) ? 'disabled' : '' ?>/>
 				<?php
 				if($teamNumber != null)
 				{
@@ -145,7 +149,7 @@
 							
 							?><div class="question"><label for="txtQ<?php echo $row['id'] ?>"><?php echo $row['question'] . ':' ?></label>
 									<select name="txtQ<?php echo $row['id'] ?>" id="txtQ<?php echo $row['id'] ?>Id"  
-										style="width: <?php echo $width ?>;" <?php echo ($_GET['btnEdit'] == 'Edit') ? '' : 'disabled' ?>>
+										style="width: <?php echo $width ?>;" <?php echo ($_POST['btnEdit'] == 'Edit') ? '' : 'disabled' ?>>
 									<option value=""></option>
 									<?php
 										while($valRow = mysql_fetch_assoc($domainValues)) {
@@ -164,15 +168,15 @@
 						else if($row['q_type'] == 'SHORT')
 						{
 							?><div class="question"><label for="txtQ<?php echo $row['id'] ?>"><?php echo $row['question'] . ':' ?></label>
-									<input type="text" name="txtQ<?php echo $row['id'] ?>" id="txtQ<?php echo $row['id'] ?>Id" style="width: 5em;" 
-										value="<?php echo $row['answer']; ?>" <?php echo ($_GET['btnEdit'] == 'Edit') ? '' : 'disabled' ?>/></div>
+									<input type="text" name="txtQ<?php echo $row['id'] ?>" id="txtQ<?php echo $row['id'] ?>Id" style="width: 7em;" 
+										value="<?php echo $row['answer']; ?>" <?php echo ($_POST['btnEdit'] == 'Edit') ? '' : 'disabled' ?>/></div>
 					<?php
 						}
 						else if($row['q_type'] == 'LONG')
 						{
 							?><div class="question"><label for="txtQ<?php echo $row['id'] ?>"><?php echo $row['question'] . ':' ?></label>
 											  <textarea cols="30" rows="2"
-															name="txtQ<?php echo $row['id'] ?>" <?php echo ($_GET['btnEdit'] == 'Edit') ? '' : 'disabled' ?>><?php echo $row['answer']; ?></textarea></div>
+															name="txtQ<?php echo $row['id'] ?>" <?php echo ($_POST['btnEdit'] == 'Edit') ? '' : 'disabled' ?>><?php echo $row['answer']; ?></textarea></div>
 					<?php
 						}
 					?>

@@ -18,7 +18,7 @@
 	// if we cannot get the password from session - redirect to the starting page.
 	if(!$_SESSION['password'])
 	{
-		header("Location: scoringapp.php"); 	/* Redirect browser */
+		header("Location: index.php"); 	/* Redirect browser */
 		exit();
 	}
 
@@ -26,7 +26,7 @@
 	$link = mysql_connect('Team102.org:3306', 'team102_webuser', $_SESSION['password']);
 	
 	if (!mysql_select_db('team102_2014', $link)) {
-    		echo 'Could not select database';
+    		echo sprintf('Could not select database, Err: %s', mysql_error());
     		exit;
 	}
 	

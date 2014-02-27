@@ -7,7 +7,7 @@
 	$link = mysql_connect('Team102.org:3306', 'team102_webuser', 'Gearheads');
 	
 	if (!mysql_select_db('team102_2014', $link)) {
-    		echo 'Could not select database';
+    		echo sprintf('Could not select database, Err: %s', mysql_error());
     		exit;
 	}
 	$sql = "select * from team_avg_pts_v
@@ -65,7 +65,14 @@
 			  echo "<tr>";
 			  foreach($colNames as $colName)
 			  {
-				 echo "<td>".$row[$colName]."</td>";
+				if($colName == "team_number")
+				{
+					echo '<td><a href="survey.php?team=' . $row[$colName] . '">' . $row[$colName] . "</a></td>";
+				}
+				else
+				{
+					echo "<td>".$row[$colName]."</td>";
+				}
 			  }
 			  echo "</tr>";
 		   }

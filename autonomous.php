@@ -7,7 +7,7 @@
 	// if we cannot get the password from session - redirect to the starting page.
 	if(!$_SESSION['password'])
 	{
-		header("Location: scoringapp.php"); 	/* Redirect browser */
+		header("Location: index.php"); 	/* Redirect browser */
 		exit();
 	}
 	
@@ -15,18 +15,15 @@
 	$link = mysql_connect('team102.org:3306', 'team102_webuser', $_SESSION['password']);
 	
 	if (!mysql_select_db('team102_2014', $link)) {
-    		echo 'Could not select database';
+    		echo sprintf('Could not select database, Err: %s', mysql_error());
     		exit;
 	}
-	// Get the match number from the choosematch page.
-	$match_number  = $_POST['rdoMatch'];
-	if($match_number == null)
-		$match_number = $_SESSION['match_number'];	
 		
+	$match_number = $_SESSION['match_number'];	
 	// If we don't have a match number we cannot continue.
 	if(!$match_number)
 	{
-		header("Location: scoringapp.php"); 	/* Redirect browser */
+		header("Location: choosematch.php"); 	/* Redirect browser */
 		exit();
 	}
 	
@@ -206,7 +203,7 @@
 					$("#chkScoreHot<?php echo $i ?>").attr("disabled", !this.checked); 
 					$("[for='chkScoreHot<?php echo $i ?>']").css("color", !this.checked ? "grey" : "white"); 
 					calcScore();
-			});
+				});
 			<?php
 			}
 			?>
@@ -294,7 +291,6 @@
                 <div id="Score" class="<?php echo strtolower($_SESSION['alliance']) ?>"></div>
 				<input type="hidden" name="scoreFieldName" id="scoreField"/>
                 <div id="nav">
-                    <button type="button" class="btnBack" onclick="history.back();">Back</button>
                     <input type="submit" name="btnNext" value="Next" />
                 </div>
             </div>

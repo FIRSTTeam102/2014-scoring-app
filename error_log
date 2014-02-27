@@ -198,3 +198,42 @@
 [26-Feb-2014 12:01:26 America/Chicago] PHP Fatal error:  Call to undefined function sprinf() in /home/team102/public_html/2014/survey.php on line 33
 [26-Feb-2014 12:07:13 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/survey.php on line 112
 [26-Feb-2014 14:22:19 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/team102/public_html/2014/survey.php on line 112
+[26-Feb-2014 16:26:37 America/Chicago] PHP Parse error:  syntax error, unexpected ',' in /home/team102/public_html/2014/survey.php on line 17
+[26-Feb-2014 16:35:49 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/index.php on line 12
+[26-Feb-2014 16:35:49 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 14
+[26-Feb-2014 16:59:36 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home/team102/public_html/2014/scoringapp.php on line 33
+[26-Feb-2014 17:00:03 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home/team102/public_html/2014/scoringapp.php on line 33
+[26-Feb-2014 17:00:38 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home/team102/public_html/2014/scoringapp.php on line 33
+[26-Feb-2014 17:03:20 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home/team102/public_html/2014/scoringapp.php on line 33
+[26-Feb-2014 17:03:47 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home/team102/public_html/2014/scoringapp.php on line 33
+[26-Feb-2014 17:04:31 America/Chicago] PHP Parse error:  syntax error, unexpected ')' in /home/team102/public_html/2014/scoringapp.php on line 34
+[26-Feb-2014 17:04:42 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home/team102/public_html/2014/scoringapp.php on line 78
+[26-Feb-2014 17:11:12 America/Chicago] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /home/team102/public_html/2014/scoringapp.php on line 36
+[26-Feb-2014 17:11:45 America/Chicago] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /home/team102/public_html/2014/scoringapp.php on line 36
+[26-Feb-2014 17:24:01 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/index.php on line 12
+[26-Feb-2014 17:24:01 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 14
+[26-Feb-2014 17:40:36 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/index.php on line 12
+[26-Feb-2014 17:40:36 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 14
+[26-Feb-2014 17:48:35 America/Chicago] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/team102/public_html/2014/index.php on line 52
+[26-Feb-2014 17:49:26 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/index.php on line 12
+[26-Feb-2014 17:49:26 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 14
+[26-Feb-2014 17:49:26 America/Chicago] PHP Warning:  mysql_close() expects parameter 1 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 34
+[26-Feb-2014 17:50:11 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/index.php on line 12
+[26-Feb-2014 17:50:11 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 14
+[26-Feb-2014 17:50:11 America/Chicago] PHP Warning:  mysql_close() expects parameter 1 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 34
+[26-Feb-2014 17:50:57 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/index.php on line 12
+[26-Feb-2014 17:50:57 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 16
+[26-Feb-2014 17:50:57 America/Chicago] PHP Warning:  mysql_close() expects parameter 1 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 36
+[26-Feb-2014 17:51:08 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/index.php on line 12
+[26-Feb-2014 17:51:08 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 16
+[26-Feb-2014 17:51:08 America/Chicago] PHP Warning:  mysql_close() expects parameter 1 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 36
+[26-Feb-2014 17:54:10 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/index.php on line 12
+[26-Feb-2014 17:54:10 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 16
+[26-Feb-2014 17:54:10 America/Chicago] PHP Warning:  mysql_close() expects parameter 1 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 36
+[26-Feb-2014 17:54:20 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/index.php on line 12
+[26-Feb-2014 17:54:20 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 16
+[26-Feb-2014 17:54:20 America/Chicago] PHP Warning:  mysql_close() expects parameter 1 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 36
+[26-Feb-2014 17:56:25 America/Chicago] PHP Warning:  mysql_close() expects parameter 1 to be resource, boolean given in /home/team102/public_html/2014/index.php on line 36
+[26-Feb-2014 19:13:35 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home/team102/public_html/2014/index.php on line 93
+[26-Feb-2014 20:31:52 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/autoextra.php on line 7
+[26-Feb-2014 20:31:52 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/autoextra.php on line 9

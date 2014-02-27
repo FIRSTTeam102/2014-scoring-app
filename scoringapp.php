@@ -1,3 +1,47 @@
+<?php
+	set_include_path(get_include_path() . PATH_SEPARATOR . "../" . PATH_SEPARATOR . "../../" . PATH_SEPARATOR . "../../../");
+
+	session_start();
+	
+	// if we cannot get the password from session - redirect to the starting page.
+	if(!$_SESSION['password'])
+	{
+		header("Location: index.php"); 	/* Redirect browser */
+		exit();
+	}
+
+	// Connect to the database.
+	$link = mysql_connect('Team102.org:3306', 'team102_webuser', $_SESSION['password']);
+	
+	if (!mysql_select_db('team102_2014', $link)) {
+    		echo sprintf('Could not select database, Err: %s', mysql_error());
+    		exit;
+	}
+	
+	if((!$_SESSION['tournament']) || ($_SESSION['tournament'] == null))
+	{
+		$sql    = 'SELECT * FROM tournaments WHERE active = "Y"';
+		$result = mysql_query($sql, $link);
+		if(!$result)
+			die(sprintf("Error querying active tournament Err: %s", mysql_error()));
+
+		$tournament = mysql_fetch_object($result);
+		if(!$tournament)
+			die("No active tournament found.");
+		$_SESSION['tournament'] = $tournament;
+	}
+	else
+		 $tournament = $_SESSION['tournament'];
+	
+	if(isset($_POST['btnChooseMatch']))
+	{
+		if($_POST['rdoAlliance'] != null)
+		{
+			$_SESSION['alliance'] = $_POST['rdoAlliance'];
+			header ("location: choosematch.php");
+		}
+	}
+?>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -16,12 +60,8 @@
 			<div style="text-align: right">The Gearheads</div>
 			<div style="text-align: right">Somerville High School, NJ</div>
             <div id="competition" style="padding-top: 50px;padding-bottom: 20px;">FRC 2014 Scoring App</div>
-            <form id="CompetitionForm" action="login.php" method="get">
-                <div id="Initials">
-                    <label for="txtInitials">Your Initials:
-                        <input type="text" maxLength="4" name="txtInitials" tabindex="1"/>
-                    </label>
-                </div>
+            <form id="CompetitionForm" action="scoringapp.php" method="post">
+				<div id="Tournament"><?php echo $tournament->Title; ?></div>
                 <div id="Alliance">
                     <div>
                         Choose an Alliance</div>
@@ -32,14 +72,9 @@
                             <input type="radio" name="rdoAlliance" id="rdoAllianceBlue" value="Blue" tabindex="3"/>Blue</label>
                     </div>
                 </div>
-                <div id="Password">
-                    <label for="txtPassword">Password:
-                        <input type="password" name="txtPassword" tabindex="4"/>
-                    </label>
-                </div>
                 <div id="nav">
-                    <input type="submit" name="btnNext" tabindex="5"/>
-                </div>
+                    <div style="padding-top: 10px;padding-bottom: 10px;"><input type="submit" name="btnChooseMatch" value="Choose Match" /></div>
+				</div>
             </form>
         </div>
     </div>
