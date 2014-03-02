@@ -41,6 +41,9 @@
     <!--[if IE]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+<div id="button_holder">
+	<a href="scoringapp.php" style="color:white; text-style:none;">Scoring App</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="survey.php" style="color:white; text-style:none;">Survey</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="preview.php" style="color:white; text-style:none;">Preview</a>
+</div>
  <table border="1" id="standings">
  <tr>
     <?php

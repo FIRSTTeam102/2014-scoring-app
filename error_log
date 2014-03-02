@@ -237,3 +237,5 @@
 [26-Feb-2014 19:13:35 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home/team102/public_html/2014/index.php on line 93
 [26-Feb-2014 20:31:52 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'team102_webuser'@'mamba.tntpowerhost.com' (using password: NO) in /home/team102/public_html/2014/autoextra.php on line 7
 [26-Feb-2014 20:31:52 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/team102/public_html/2014/autoextra.php on line 9
+[27-Feb-2014 07:28:48 America/Chicago] PHP Fatal error:  Call to a member function close() on a non-object in /home/team102/public_html/2014/login.php on line 12
+[27-Feb-2014 07:28:48 America/Chicago] PHP Fatal error:  Call to a member function close() on a non-object in /home/team102/public_html/2014/login.php on line 12

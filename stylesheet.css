@@ -190,7 +190,7 @@ input[type=radio]:checked {
 {
 	border: 1px solid white;
 }
-#standings
+#standings, #preview
 {
 	text-align:center; 
     vertical-align:middle;
@@ -207,14 +207,4 @@ input[type=radio]:checked {
 .teamRecap th, .cycleRecap th
 {
 	border-bottom: 2px solid white;
-}
-@media only screen and (max-width: 1080px) {
-
-   body { font-size: 1.3em; }
-
-}
-@media only screen and (max-width: 720px) {
-
-   body { font-size: 1.1em; }
-
 }

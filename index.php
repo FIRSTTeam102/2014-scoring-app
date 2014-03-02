@@ -4,7 +4,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . "../" . PATH_SEPARATOR . 
 
 session_start();
 
-if(isset($_POST['btnScoringApp']) || isset($_POST['btnStandings']) || isset($_POST['btnSurvey']))
+if(isset($_POST['btnScoringApp']) || isset($_POST['btnStandings']) || isset($_POST['btnSurvey']) || isset($_POST['btnPreview']))
 {
 	$password = $_POST['txtPassword'];
 	$initials = $_POST['txtInitials'];
@@ -38,6 +38,8 @@ if(isset($_POST['btnScoringApp']) || isset($_POST['btnStandings']) || isset($_PO
 					header ("location: standings.php");
 				else if(isset($_POST['btnSurvey']))
 					header ("location: survey.php");
+				else if(isset($_POST['btnPreview']))
+					header ("location: preview.php");
 			}
 		}
 	}
@@ -89,6 +91,7 @@ if(isset($_POST['btnScoringApp']) || isset($_POST['btnStandings']) || isset($_PO
                     <div style="padding-top: 10px;padding-bottom: 10px;"><input type="submit" name="btnScoringApp" value="Team 102 Scoring App" /></div>
                     <div style="padding-top: 10px;padding-bottom: 10px;"><input type="submit" name="btnStandings" value="Team 102 Standings Page" /></div>
                     <div style="padding-top: 10px;padding-bottom: 10px;"><input type="submit" name="btnSurvey" value="Team 102 Scouting Survey" /></div>
+					<div style="padding-top: 10px;padding-bottom: 10px;"><input type="submit" name="btnPreview" value="Team 102 Match Preview" /></div>
                 </div>
 			</form>
         </div>

@@ -105,6 +105,9 @@
 </head>
 <body class="no-js">
     <div id="page">
+		<div id="button_holder">
+			<a href="scoringapp.php" style="color:white; text-style:none;">Scoring App</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="preview.php" style="color:white; text-style:none;">Match Preview</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="standings.php" style="color:white; text-style:none;">Standings</a>
+		</div>
         <div class="header">2014 FRC Questionnaire</div>
         <form id="QuestionsForm" action="survey.php" method="POST">
 			<label for="selectTeamID">Team: </label>			
