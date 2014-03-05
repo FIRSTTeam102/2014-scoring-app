@@ -47,46 +47,41 @@
 <div id="button_holder">
 	<a href="scoringapp.php" style="color:white; text-style:none;">Scoring App</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="survey.php" style="color:white; text-style:none;">Survey</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="preview.php" style="color:white; text-style:none;">Preview</a>
 </div>
+<div>&nbsp;</div>
  <table border="1" id="standings">
- <tr>
     <?php
-		if($colNames == null)
+ 		if($colNames == null)
 		{
-			echo "</tr><td>&nbsp;<tr><th>There are no standings to report.</th>";
+			echo "<tr><th>There are no standings to report.</th></tr>";
 		}
 		else
 		{
-			echo "<th>row</th>";
-		   //print the header
-		   foreach($colNames as $colName)
-		   {
-			$colName = trim($colName);
-		   ?>
-			 <th><a href="standings.php?sort=<?php echo ($sort == $colName . ' desc') ? $colName : $colName . ' desc';?>">
-					<?php echo str_replace('_', ' ', $colName); ?>
-				</a></th>
-			<?php
-		   }
-    ?>
- </tr>
-
-    <?php
-		   //print the rows
+ 		   //print the rows
 		   $i = 1;
 		   foreach($data as $row)
 		   {
-				if($i % 10 == 0)
+				if(($i - 1) % 10 == 0)
 				{
 					echo "<th>row</th>";
 				   //print the header
 				   foreach($colNames as $colName)
 				   {
-					$colName = trim($colName);
+						if(($colName == 'team_number') || ($colName == 'avg_pts_against') || ($colName == 'num_matches'))
+						{
+							$default_sort = ' asc';
+							$second_sort = ' desc';
+						}
+						else
+						{
+							$default_sort = ' desc';
+							$second_sort = ' asc';
+						}
 				   ?>
-					 <th><a href="standings.php?sort=<?php echo ($sort == $colName) ? $colName . ' desc' : $colName;?>"><?php echo str_replace('_', ' ', $colName); ?></a></th>
+					 <th><a href="standings.php?sort=<?php echo ($sort == $colName . $default_sort) ? $colName . $second_sort: $colName . $default_sort;?>" 
+									<?php echo (($sort == $colName . $default_sort) || ($sort == $colName . $second_sort)) ? ' class="currentSort"' : '';?> >
+							<?php echo str_replace('_', ' ', $colName); ?></a></th>
 					<?php
 				   }
-					
 				}
 			  echo "<tr><td>" . $i++ . "</td>";
 			  foreach($colNames as $colName)

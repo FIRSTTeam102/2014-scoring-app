@@ -207,3 +207,7 @@ input[type=radio]:checked {
 {
 	border-bottom: 2px solid white;
 }
+.currentSort
+{
+	text-decoration: underline;		
+}
