@@ -63,11 +63,21 @@
 								(tournament_id, match_number, team_number, cycle_number, offense_possession, midfield_possession, defense_possession
 								  , truss, catch, goal, assist_points)
 								 values ('%s', %s, %s, %s, '%s', '%s', '%s'
-								 , '%s', '%s', '%s', %s)"
+								 , '%s', '%s', '%s', %s)
+									ON DUPLICATE KEY UPDATE offense_possession = '%s', midfield_possession = '%s', defense_possession = '%s'
+								  , truss = '%s', catch = '%s', goal = '%s', assist_points = %s
+								 "
 								, $_SESSION['tournament']->ID
 								, $_SESSION['match']->match_number
 								, $teamNumber
 								, $_SESSION['cycleNumber']
+								, isset($_POST['chkTeam' . $team . 'OffenseName']) ? "Y" : "N"
+								, isset($_POST['chkTeam' . $team . 'WhiteName']) ? "Y" : "N"
+								, isset($_POST['chkTeam' . $team . 'DefenseName']) ? "Y" : "N"
+								, ($_POST['rdoTruss'] == $team) ? "Y" : "N"
+								, ($_POST['rdoCatch'] == $team) ? "Y" : "N"
+								, ($_POST['rdoGoal'] == "H" . $team) ? "H" : (($_POST['rdoGoal'] == "L" . $team) ? "L" : "N")
+								, $assistPts
 								, isset($_POST['chkTeam' . $team . 'OffenseName']) ? "Y" : "N"
 								, isset($_POST['chkTeam' . $team . 'WhiteName']) ? "Y" : "N"
 								, isset($_POST['chkTeam' . $team . 'DefenseName']) ? "Y" : "N"

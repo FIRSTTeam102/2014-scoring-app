@@ -10,8 +10,11 @@
     		echo sprintf('Could not select database, Err: %s', mysql_error());
     		exit;
 	}
-	$sql = "select * from team_avg_pts_v
-				order by avg_pts desc";
+	$sort = "rank";
+	if($_GET['sort'] != null)
+		$sort = $_GET['sort'];
+
+	$sql = "select * from team_avg_pts_v order by " . mysql_real_escape_string($sort);
 	
 	$standingsQ = mysql_query($sql, $link);
 	if (!$standingsQ) {
@@ -53,19 +56,39 @@
 		}
 		else
 		{
+			echo "<th>row</th>";
 		   //print the header
 		   foreach($colNames as $colName)
 		   {
-			  echo "<th>" . str_replace('_', ' ', $colName) . "</th>";
+			$colName = trim($colName);
+		   ?>
+			 <th><a href="standings.php?sort=<?php echo ($sort == $colName . ' desc') ? $colName : $colName . ' desc';?>">
+					<?php echo str_replace('_', ' ', $colName); ?>
+				</a></th>
+			<?php
 		   }
     ?>
  </tr>
 
     <?php
 		   //print the rows
+		   $i = 1;
 		   foreach($data as $row)
 		   {
-			  echo "<tr>";
+				if($i % 10 == 0)
+				{
+					echo "<th>row</th>";
+				   //print the header
+				   foreach($colNames as $colName)
+				   {
+					$colName = trim($colName);
+				   ?>
+					 <th><a href="standings.php?sort=<?php echo ($sort == $colName) ? $colName . ' desc' : $colName;?>"><?php echo str_replace('_', ' ', $colName); ?></a></th>
+					<?php
+				   }
+					
+				}
+			  echo "<tr><td>" . $i++ . "</td>";
 			  foreach($colNames as $colName)
 			  {
 				if($colName == "team_number")

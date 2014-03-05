@@ -4,10 +4,9 @@
     font-size: 1.3em;
     color: white;
     font-family: verdana, Sans-serif;
-    border: solid 1px white;
     max-width:700px;
 }
-td a
+td a, th a
 {
 	color: white;
 	text-decoration: none;
@@ -194,7 +193,7 @@ input[type=radio]:checked {
 {
 	text-align:center; 
     vertical-align:middle;
-	font-size: 0.75em;
+	font-size: 0.65em;
 }
 .teamRecap, .cycleRecap
 {
