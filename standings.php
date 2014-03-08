@@ -14,7 +14,14 @@
 	if($_GET['sort'] != null)
 		$sort = $_GET['sort'];
 
-	$sql = "select * from team_avg_pts_v order by " . mysql_real_escape_string($sort);
+	$sql = "select * from team_avg_pts_v order by ";
+	
+/*	$sql = "select *
+			from team_avg_pts_v
+			where team_number in (select team_number from tournament_teams where tournament_id = 'CLIFTON')
+			order by ";
+*/	
+	$sql .= mysql_real_escape_string($sort);
 	
 	$standingsQ = mysql_query($sql, $link);
 	if (!$standingsQ) {
@@ -66,7 +73,7 @@
 				   //print the header
 				   foreach($colNames as $colName)
 				   {
-						if(($colName == 'team_number') || ($colName == 'avg_pts_against') || ($colName == 'num_matches'))
+						if(($colName == 'team_number') || ($colName == 'avg_pts_against') || ($colName == 'num_matches') || ($colName == 'rank'))
 						{
 							$default_sort = ' asc';
 							$second_sort = ' desc';
