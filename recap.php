@@ -21,6 +21,17 @@
 	// If they have clicked the Next Match button, mark the match-teams complete and go to the choose match page.
 	if(isset($_POST['btnNext']) )
 	{
+	
+		$sql = sprintf("update match_teams
+						set foul_pts_against = %s
+						where tournament_id = '%s'
+						and match_number = %s
+						and alliance = '%s'", (((int)$_POST['foul_pts'])/3), $_SESSION['tournament']->ID, $_SESSION['match_number']
+											, ($_SESSION['alliance'] === 'RED') ? 'BLUE':'RED');
+		
+		$updateReturn = mysql_query($sql, $link);
+		if(!$updateReturn)
+			die("Error updating match_teams team: " . $_SESSION['match']->team1 . " Err: " . mysql_error());
 /*		for($team = 1; $team <= 3; $team++)
 		{
 			if($team == 1)
@@ -150,6 +161,9 @@
 ?>
 		</table>
             <div style="clear:both;"></div>
+			<div id="fouls" class="<?php echo strtolower($_SESSION['match']->alliance) ?>">
+				Foul Pts For: <input name="foul_pts" type="text" id="foul"/>
+			</div>
             <div class="footer">
                 <div id="Score" class="<?php echo strtolower($_SESSION['match']->alliance) ?>"></div>
                 <div id="nav">

@@ -16,11 +16,12 @@
 
 	$sql = "select * from team_avg_pts_v order by ";
 	
-/*	$sql = "select *
-			from team_avg_pts_v
-			where team_number in (select team_number from tournament_teams where tournament_id = 'CLIFTON')
-			order by ";
-*/	
+	if($_GET['AllTournaments'] != null)
+		$sql = "select apv.* 
+				from t_team_avg_pts_v  apv
+				where team_number in (select team_number from tournament_teams tt, tournaments t where tt.tournament_id = t.id and t.active = 'Y')
+				order by ";	// Over all tournaments that are not Active = 'O'
+	
 	$sql .= mysql_real_escape_string($sort);
 	
 	$standingsQ = mysql_query($sql, $link);
